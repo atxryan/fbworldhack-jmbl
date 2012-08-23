@@ -29,50 +29,52 @@ $(function() {
     	return newArray;
 	}
 
-	// This is our word. This would be returned by our getLike() function or its equivalent;
-	// For testing purposes it is currently hardcoded.
-	//var word = getLike();
-	// alert("Testing OpenGraph: my first like=" + getLike());
-	var word = 'house';
 
-	var currentArray = [];
-	
-	// We split the array into it's component letters and shuffle them.
-	var charsArray = word.split('');
-		shuffled = shuffle(charsArray);
+    window.initJumble = function () {
+		// This is our word. This would be returned by our getLike() function or its equivalent;
+		// For testing purposes it is currently hardcoded.
+		//var word = getLike();
+		// alert("Testing OpenGraph: my first like=" + getLike());
+		var word = 'house';
 
-	console.log("Original", charsArray)
-	console.log("Shuffled", shuffled);
+		var currentArray = [];
+		
+		// We split the array into it's component letters and shuffle them.
+		var charsArray = word.split('');
+			shuffled = shuffle(charsArray);
 
-
-	var shuffledSnippet = '';
-	for(var x = 0; x < shuffled.length; x++) {
-		// Dirty. Build a text snippet of the HTML;
-		shuffledSnippet += '<li class="ui-state-default" id="' + shuffled[x] + '">' + shuffled[x]+ '</li>'
-	}
-
-	// Inject the text snippet as the #sortable html
-	$("#sortable").html(shuffledSnippet);
+		console.log("Original", charsArray)
+		console.log("Shuffled", shuffled);
 
 
-
-	$( "#sortable" ).sortable({
-		stop: function(event, ui) { 
-			currentArray = $("#sortable").sortable('toArray');
-
-			console.log(currentArray);
-			console.log(charsArray);
-
-			// Check to see if current letter is in correct spot
-			// checkLetterPositionCorrectness();
-
-			// Check to see if word is complete
-			// checkWordCompletion();
+		var shuffledSnippet = '';
+		for(var x = 0; x < shuffled.length; x++) {
+			// Dirty. Build a text snippet of the HTML;
+			shuffledSnippet += '<li class="ui-state-default" id="' + shuffled[x] + '">' + shuffled[x]+ '</li>'
 		}
-	});
+
+		// Inject the text snippet as the #sortable html
+		$("#sortable").html(shuffledSnippet);
 
 
-	$( "#sortable" ).disableSelection();
+
+		$( "#sortable" ).sortable({
+			stop: function(event, ui) { 
+				currentArray = $("#sortable").sortable('toArray');
+
+				console.log(currentArray);
+				console.log(charsArray);
+
+				// Check to see if current letter is in correct spot
+				// checkLetterPositionCorrectness();
+
+				// Check to see if word is complete
+				// checkWordCompletion();
+			}
+		});
 
 
+		$( "#sortable" ).disableSelection();
+
+	}
 });

@@ -37,6 +37,10 @@
         });
 
         FB.Canvas.setAutoGrow();
+
+        FB.getLoginStatus(function(response){
+          window.initJumble(); 
+        });
       };
 
       // Load the SDK Asynchronously
