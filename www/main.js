@@ -1,5 +1,19 @@
 $(function() {
 
+	function getLike() {
+		// get the first like
+		// todo: get a random like
+		FB.api("me/likes",{
+  			fields:'name',
+  			limit:1
+		},function(res){
+  			return res.data[0].name;
+  			//$.each(res.data,function(idx,val){
+     			//l=l+val.id+(idx<res.data.length-1?',':'')
+			//})
+		});
+	}
+
 	// Simple array shuffle function; feel free to update algorithm;
 	function shuffle(array) {
 		var newArray = array;
@@ -18,6 +32,7 @@ $(function() {
 	// This is our word. This would be returned by our getLike() function or its equivalent;
 	// For testing purposes it is currently hardcoded.
 	//var word = getLike();
+	alert("Testing OpenGraph: my first like=" + getLike());
 	var word = 'house';
 
 	var currentArray = [];
