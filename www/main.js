@@ -5,12 +5,12 @@ $(function() {
 		// todo: get a random like
 		FB.api("me/likes",{
   			fields:'name',
-  			limit:1
+  			limit:10
 		},function(res){
-  			return res.data[0].name;
-  			//$.each(res.data,function(idx,val){
-     			//l=l+val.id+(idx<res.data.length-1?',':'')
-			//})
+			var randNum = Math.floor(Math.random() * (res.length + 1));
+			var data = res[randNum];
+			var randLike = data.name;
+			return randLike;
 		});
 	}
 
