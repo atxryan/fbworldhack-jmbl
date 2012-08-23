@@ -1,4 +1,19 @@
+function checkCorrectness(ans, inp) {
+	var i;
+	var count = 0;
+	
+	for (i=0; i<ans.length; i++) {
+		if (ans[i] == inp[i]) {
+			count++;
+		}
+	}	
+	$("#correct").html(count + "/" + ans.length + " are correct.");
+}
+
+
+
 $(function() {
+var word;
 
 	function getLike() {
 		// get the first like
@@ -35,7 +50,7 @@ $(function() {
 		// For testing purposes it is currently hardcoded.
 		//var word = getLike();
 		console.log("Testing OpenGraph: my first like=" + getLike());
-		var word = 'house';
+		word = 'house';
 
 		var currentArray = [];
 		
@@ -62,14 +77,14 @@ $(function() {
 			stop: function(event, ui) { 
 				currentArray = $("#sortable").sortable('toArray');
 
-				console.log(currentArray);
+				console.log(currentArray.join(""));
 				console.log(charsArray);
 
 				// Check to see if current letter is in correct spot
 				// checkLetterPositionCorrectness();
 
 				// Check to see if word is complete
-				// checkWordCompletion();
+				checkCorrectness(word, currentArray.join(""));
 			}
 		});
 
