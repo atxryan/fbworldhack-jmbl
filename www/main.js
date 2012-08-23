@@ -1,18 +1,6 @@
 $(function() {
 
-	function getLike() {
-		// get the first like
-		// todo: get a random like
-		FB.api("me/likes",{
-  			fields:'name',
-  			limit:10
-		},function(res){
-			var randNum = Math.floor(Math.random() * (res.length + 1));
-			var data = res[randNum];
-			var randLike = data.name;
-			return randLike;
-		});
-	}
+	
 
 	// Simple array shuffle function; feel free to update algorithm;
 	function shuffle(array) {
