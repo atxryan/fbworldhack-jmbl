@@ -39,7 +39,6 @@
         FB.Canvas.setAutoGrow();
 
         FB.getLoginStatus(function(response){
-          window.initJumble(); 
 
 
           window.getLike = function() {
@@ -54,6 +53,10 @@
             var randLike = data.name;
             return randLike;
           });
+
+
+          window.initJumble(); 
+
         }
 
 
