@@ -34,7 +34,7 @@ $(function() {
 		// This is our word. This would be returned by our getLike() function or its equivalent;
 		// For testing purposes it is currently hardcoded.
 		//var word = getLike();
-		// alert("Testing OpenGraph: my first like=" + getLike());
+		alert("Testing OpenGraph: my first like=" + getLike());
 		var word = 'house';
 
 		var currentArray = [];
