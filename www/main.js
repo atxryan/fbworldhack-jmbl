@@ -3,15 +3,15 @@ $(function() {
 	function getLike() {
 		// get the first like
 		// todo: get a random like
-		FB.api("me/likes",{
-  			fields:'name',
-  			limit:1
-		},function(res){
-  			return res.data[0].name;
-  			//$.each(res.data,function(idx,val){
-     			//l=l+val.id+(idx<res.data.length-1?',':'')
-			//})
-		});
+		// FB.api("me/likes",{
+  // 			fields:'name',
+  // 			limit:1
+		// },function(res){
+  // 			return res.data[0].name;
+  // 			//$.each(res.data,function(idx,val){
+  //    			//l=l+val.id+(idx<res.data.length-1?',':'')
+		// 	//})
+		// });
 	}
 
 	// Simple array shuffle function; feel free to update algorithm;
