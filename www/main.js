@@ -8,6 +8,12 @@ function checkCorrectness(ans, inp) {
 		}
 	}	
 	$("#correct").html(count + "/" + ans.length + " are correct.");
+
+	if (count == ans.length) {
+		$("#sortable").addClass("complete");
+	} else {
+		$("#sortable").removeClass("complete");
+	}
 }
 
 
