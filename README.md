@@ -16,3 +16,5 @@ Setup heroku remote
 `git remote add heroku git@heroku.com:jumblefriend.git`
 
 `git push heroku master`
+
+Amine: commit test
