@@ -4,7 +4,6 @@ fbworldhack-jmbl
 `git clone https://github.com/atxryan/fbworldhack-jmbl.git`
 
 After making changes to files
-If adding new files..
 `git add .`
 `git commit -m "Explain changes"`
 
