@@ -24,20 +24,33 @@ body {
 	padding: 5px;
 	width: 150px;
 }
+#sortablewrapper {
+	float: left;
+	width: 100%;
+	position: relative;
+	margin-bottom:10px;
+}
 #sortable { 
 	list-style-type: none; 
 	margin: 0; 
 	padding: 0;
+	clear: left;
+	float: left;
+	position: relative;
+	left: 50%;
+	text-align: center;
 }
 
 #sortable li { 
+	right: 50%;
+	position: relative;
 	line-height: 1.25em;
 	text-transform: uppercase;
 	background: white;
-	margin: .5%;
-	padding: .5%;
+	margin: 5px;
+	padding: 3px;
 	float: left;
-	width: 10%;
+	width: 75px;
 	font-size: 4em;
 	text-align: center;
 	cursor: move;
