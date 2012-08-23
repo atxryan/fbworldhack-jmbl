@@ -15,4 +15,5 @@
 	font-size: 4em; 
 	text-align: center; 
 	cursor: move;
+	border: 1px solid red;
 }
