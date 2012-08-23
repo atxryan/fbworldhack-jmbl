@@ -3,9 +3,8 @@ fbworldhack-jmbl
 
 `git clone https://github.com/atxryan/fbworldhack-jmbl.git`
 
-After making changes to files
-`git add .`
-`git commit -m "Explain changes"`
+After making changes to files add and commit;
+`git commit -am "Explain changes"`
 
 Push to github
 `git push origin master`
