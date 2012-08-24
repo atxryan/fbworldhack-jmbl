@@ -94,16 +94,15 @@ body {
 	border: 1px solid red;
 }
 #sortable li input {
-	border: none;
-	border-bottom: 1px solid #000;
+	border: 1px solid #CCC;
+	border-bottom: 2px solid #000;
 	width: 65px;
 	height: 65px;
 	text-align: center;
 	text-transform: uppercase;
 }
-#sortable li span {
-	display: block;
-}
+#sortable li span {}
+
 #sortable.complete li {
 	border: 1px solid green;
 }

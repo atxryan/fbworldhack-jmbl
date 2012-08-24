@@ -17,4 +17,3 @@ Setup heroku remote
 
 `git push heroku master`
 
-Amine: commit test

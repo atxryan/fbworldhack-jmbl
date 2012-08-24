@@ -1,24 +1,4 @@
-function checkCorrectness(ans, inp) {
-	var i;
-	var count = 0;
-	
-	for (i=0; i<ans.length; i++) {
-		if (ans[i] == inp[i]) {
-			count++;
-		}
-	}	
-	$("#correct").html(count + "/" + ans.length + " are correct.");
-
-	if (count == ans.length) {
-		$("#sortable").addClass("complete");
-		clearInterval(counter);
-		sendRequestToRecipients(friend_ids.join(","));
-	} else {
-		$("#sortable").removeClass("complete");
-	}
-}
-
-function publishToWall(friendID) {
+function publishToWall() {
      FB.ui(
        {
          method: 'stream.publish',
@@ -198,13 +178,30 @@ var lettersAsFriends = {
 }
 
 $(function() {
+	function checkCorrectness(ans, inp) {
+		var i;
+		var count = 0;
+		
+		for (i=0; i<ans.length; i++) {
+			if (ans[i] == inp[i]) {
+				count++;
+			}
+		}	
+		$("#correct").html(count + "/" + ans.length + " are correct.");
 
-	window.getLike = function() {
+		if (count == ans.length) {
+			$("#sortable").addClass("complete");
+			clearInterval(counter);
+			sendRequestToRecipients(friend_ids.join(","));
+		} else {
+			$("#sortable").removeClass("complete");
+		}
+	}
+	function getLike() {
 		// get the first like
 		// todo: get a random like
 		FB.api("/me/likes/", 
 			function(res){
-			console.log("Likes response:", res.data);
 			
 			var scrubbedArray = [];
 
@@ -213,37 +210,30 @@ $(function() {
 					scrubbedArray.push( res.data[x] );
 				}
 			}
-			var randNum = Math.floor(Math.random() * (scrubbedArray.length + 1));
+			var randNum = Math.floor(Math.random() * scrubbedArray.length);
 			var randLike = scrubbedArray[randNum].name;
 
 			console.log(randLike);
+
 			initJumble(randLike.toLowerCase());
 
-
-			
-
-			
 		});
 	}
 
-	window.getFriends = function() {
+	JMBL.getFriends = function() {
 		FB.api("/me/friends/",
 			{fields : "name,id,picture"},
 			function(res){
 
-				console.log(res)
-
 				for (var x = 0; x < res.data.length; x++) {
 					var firstLetter = res.data[x].name.toLowerCase().substring(0,1);
-					// console.log(lettersAsFriends[firstLetter]);
 					
 					if (lettersAsFriends[firstLetter])
 					  lettersAsFriends[firstLetter].push(res.data[x]);
 
-					//console.log(firstLetter, lettersAsFriends[firstLetter]);
 				}
 
-				window.getLike();
+				getLike();
 			
 		});
 	}
@@ -281,7 +271,6 @@ $(function() {
 		var shuffledSnippet = '';
 		for(var x = 0; x < shuffled.length; x++) {
 			// Dirty. Build a text snippet of the HTML;
-			console.log(shuffled[x].toLowerCase());
 
 			friend = shuffle(lettersAsFriends[shuffled[x]])[0];
 			friend_ids.push(friend.id);
@@ -306,7 +295,7 @@ $(function() {
 		});
 
 
-		$( "#sortable" ).disableSelection();
+		// $( "#sortable" ).disableSelection();
 
 		timer();
 
