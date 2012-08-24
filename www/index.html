@@ -16,6 +16,8 @@
 
 <div id="fb-root"></div>
     <script type="text/javascript">
+    var word;
+
       window.fbAsyncInit = function() {
         FB.init({
           appId      : '362421358475', // App ID
@@ -39,7 +41,7 @@
         FB.Canvas.setAutoGrow();
 
         FB.getLoginStatus(function(response){
-          window.initJumble(); 
+              word = window.getLike();
         });
       };
 
@@ -71,6 +73,7 @@
 	</div>
   <div id="correct"></div>
 
+<button onclick="initJumble()">Start Jumble</button>
 </div><!-- End demo -->
 
 

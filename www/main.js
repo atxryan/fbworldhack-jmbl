@@ -19,18 +19,19 @@ function checkCorrectness(ans, inp) {
 
 
 $(function() {
-var word;
 
-	function getLike() {
+	window.getLike = function() {
 		// get the first like
 		// todo: get a random like
-		FB.api("me/likes",{
-  			fields:'name',
-  			limit:10
-		},function(res){
-			var randNum = Math.floor(Math.random() * (res.length + 1));
+		FB.api("/me/likes?access_token=AAAAAAITEghMBAC7vv0diw14D5wZCCRGf02b0xzaAk6uZArhNLR5Xqr3p6qiQDTqP36nEGDN7fY419EldcgAdu2VzKEo8kmfkKqnKSeogZDZD",{
+  			fields: 'name',
+  			limit: 10
+		}, function(res){
+			var randNum = Math.floor(Math.random() * (res.data.length + 1));
 			var data = res[randNum];
-			var randLike = data.name;
+			var randLike = res.data[randNum].name;
+			console.log("Random like", randLike)
+
 			return randLike;
 		});
 	}
@@ -54,9 +55,9 @@ var word;
     window.initJumble = function () {
 		// This is our word. This would be returned by our getLike() function or its equivalent;
 		// For testing purposes it is currently hardcoded.
-		//var word = getLike();
-		console.log("Testing OpenGraph: my first like=" + getLike());
-		word = 'house';
+		
+
+		// word = 'house';
 
 		var currentArray = [];
 		
