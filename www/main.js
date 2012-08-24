@@ -17,22 +17,95 @@ function checkCorrectness(ans, inp) {
 }
 
 
+var lettersAsFriends = {
+	"0" : [{picture: "http://www.macrobusiness.com.au/wp-content/uploads/2012/06/zero2.jpeg"}],
+	"1" : [],
+	"2" : [],
+	"3" : [],
+	"4" : [],
+	"5" : [],
+	"6" : [],
+	"7" : [],
+	"8" : [],
+	"8" : [],
+	"9" : [],
+" " : [],
+	"a" : [],
+	"b" : [],
+	"c" : [],
+	"d" : [],
+	"e" : [],
+	"f" : [],
+	"g" : [],
+	"h" : [],
+	"i" : [],
+	"j" : [],
+	"k" : [],
+	"l" : [],
+	"m" : [],
+	"n" : [],
+	"o" : [],
+	"p" : [],
+	"q" : [],
+	"r" : [],
+	"s" : [],
+	"t" : [],
+	"u" : [],
+	"v" : [],
+	"w" : [],
+	"x" : [],
+	"y" : [],
+	"z" : [{picture: "http://www.macrobusiness.com.au/wp-content/uploads/2012/06/zero2.jpeg"}]
+}
 
 $(function() {
 
 	window.getLike = function() {
 		// get the first like
 		// todo: get a random like
-		FB.api("/me/likes/",{
-  			fields: 'name',
-  			limit: 10
-		}, function(res){
-			var randNum = Math.floor(Math.random() * (res.data.length + 1));
-			var data = res[randNum];
-			var randLike = res.data[randNum].name;
-			console.log("Random like", randLike)
+		FB.api("/me/likes/", 
+			function(res){
+			console.log("Likes response:", res.data);
+			
+			var scrubbedArray = [];
 
-			return randLike;
+			for (var x = 0; x < res.data.length; x++) {
+				if (res.data[x].name.length <= 8 && /^[a-zA-Z0-9]*$/.test(res.data[x].name)) {
+					scrubbedArray.push( res.data[x] );
+				}
+			}
+			var randNum = Math.floor(Math.random() * (scrubbedArray.length + 1));
+			var randLike = scrubbedArray[randNum].name;
+
+			console.log(randLike);
+			initJumble(randLike);
+
+
+			
+
+			
+		});
+	}
+
+	window.getFriends = function() {
+		FB.api("/me/friends/",
+			{fields : "name,id,picture"},
+			function(res){
+
+				console.log(res)
+
+				for (var x = 0; x < res.data.length; x++) {
+					var firstLetter = res.data[x].name.toLowerCase().substring(0,1);
+					// console.log(lettersAsFriends[firstLetter]);
+					
+					if (lettersAsFriends[firstLetter])
+					  lettersAsFriends[firstLetter].push(res.data[x]);
+
+					//console.log(firstLetter, lettersAsFriends[firstLetter]);
+				}
+
+				window.getLike();
+			
 		});
 	}
 
@@ -52,12 +125,12 @@ $(function() {
 	}
 
 
-    window.initJumble = function () {
+    window.initJumble = function (word) {
 		// This is our word. This would be returned by our getLike() function or its equivalent;
 		// For testing purposes it is currently hardcoded.
 		
 
-		word = 'facebook';
+		//word = 'facebook';
 
 		var currentArray = [];
 		
@@ -72,7 +145,10 @@ $(function() {
 		var shuffledSnippet = '';
 		for(var x = 0; x < shuffled.length; x++) {
 			// Dirty. Build a text snippet of the HTML;
-			shuffledSnippet += '<li class="ui-state-default" id="' + shuffled[x] + '">' + shuffled[x]+ '</li>'
+			console.log(shuffled[x].toLowerCase());
+			shuffledSnippet += '<li class="ui-state-default" id="' + shuffled[x] + '">';
+			shuffledSnippet += '<img src="' + lettersAsFriends[shuffled[x].toLowerCase()][0].picture + '" />'
+			shuffledSnippet += '<span>' + shuffled[x] + '</span></li>';
 		}
 
 		// Inject the text snippet as the #sortable html
@@ -84,8 +160,8 @@ $(function() {
 			stop: function(event, ui) { 
 				currentArray = $("#sortable").sortable('toArray');
 
-				console.log(currentArray.join(""));
-				console.log(charsArray);
+				// console.log(currentArray.join(""));
+				// console.log(charsArray);
 
 				// Check to see if current letter is in correct spot
 				// checkLetterPositionCorrectness();
@@ -98,5 +174,32 @@ $(function() {
 
 		$( "#sortable" ).disableSelection();
 
+		timer();
+
+	}
+
+	function timer() {
+		var count=60;
+
+		var counter=setInterval(timer, 1000); //1000 will  run it every 1 second
+
+		function timer() {
+		  count=count-1;
+		  $("#timer b").text("00:" + count);
+
+		  if (count == 5) {
+		  	$("#timer").addClass("urgent");
+		  }
+		  
+		  if (count <= 0) {
+		     clearInterval(counter);
+		     $( "#sortable" ).sortable('disable');
+
+
+		     return;
+		  }
+
+		  //Do code for showing the number of seconds here
+		}
 	}
 });

@@ -93,6 +93,9 @@ body {
 	cursor: move;
 	border: 1px solid red;
 }
+#sortable li span {
+	display: block;
+}
 #sortable.complete li {
 	border: 1px solid green;
 }

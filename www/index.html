@@ -16,7 +16,6 @@
 
 <div id="fb-root"></div>
     <script type="text/javascript">
-    var word;
 
       window.fbAsyncInit = function() {
         FB.init({
@@ -26,6 +25,7 @@
           cookie     : true, // enable cookies to allow the server to access the session
           xfbml      : true // parse XFBML
         });
+
 
         // Listen to the auth.login which will be called when the user logs in
         // using the Login button
@@ -39,10 +39,10 @@
         });
 
         FB.Canvas.setAutoGrow();
+        window.getFriends()
 
         FB.getLoginStatus(function(response){
-
-              initJumble();
+              window.getLike()
         });
       };
 
@@ -74,7 +74,7 @@
 	</div>
   <div id="correct"></div>
 
-<button onclick="initJumble()">Start Jumble</button>
+<button onclick="getLike()">Refresh Jumble</button>
 </div><!-- End demo -->
 
 
