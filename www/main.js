@@ -32,8 +32,10 @@ var counter;
 var count = 91;
 
 var lettersAsFriends = {
-	"0" : [ // Coke Zero
-			{picture: "https://fbcdn-profile-a.akamaihd.net/hprofile-ak-snc4/41806_61124008229_1102100254_n.jpg"}],
+	"0" : [{
+				name: "0",
+				picture: "https://fbcdn-profile-a.akamaihd.net/hprofile-ak-snc4/41806_61124008229_1102100254_n.jpg"
+			}],
 	"1" : [{	
 				name: "1",
 				picture: "https://fbcdn-profile-a.akamaihd.net/hprofile-ak-snc4/373001_345986695424990_468649902_n.jpg"
@@ -44,31 +46,31 @@ var lettersAsFriends = {
 			}],
 	"3" : [{	
 				name: "3",
-				picture: ""
+				picture: "https://fbcdn-profile-a.akamaihd.net/hprofile-ak-ash2/373047_133091376821_159276893_n.jpg"
 			}],
 	"4" : [{	
 				name: "4",
-				picture: ""
+				picture: "https://fbcdn-profile-a.akamaihd.net/hprofile-ak-snc4/373569_222303587785460_1801097859_n.jpg"
 			}],
 	"5" : [{	
 				name: "5",
-				picture: ""
+				picture: "https://fbcdn-profile-a.akamaihd.net/hprofile-ak-ash2/50493_256579730979_5490084_n.jpg"
 			}],
 	"6" : [{	
 				name: "6",
-				picture: ""
+				picture: "https://fbcdn-profile-a.akamaihd.net/hprofile-ak-ash2/41592_379632647166_3293_n.jpg"
 			}],
 	"7" : [{	
 				name: "7",
-				picture: ""
+				picture: "https://fbcdn-profile-a.akamaihd.net/hprofile-ak-snc4/50262_370610944091_8246425_n.jpg"
 			}],
 	"8" : [{	
 				name: "8",
-				picture: ""
+				picture: "https://fbcdn-profile-a.akamaihd.net/hprofile-ak-snc4/50265_386320944032_3130258_n.jpg"
 			}],
 	"9" : [{	
 				name: "9",
-				picture: ""
+				picture: "https://fbcdn-profile-a.akamaihd.net/hprofile-ak-ash2/373241_187788471270897_778469928_n.jpg"
 			}],
 	" " : [{	
 				name: "a blank space",
@@ -170,12 +172,15 @@ var lettersAsFriends = {
 				name: "X-men",
 				picture: "https://fbexternal-a.akamaihd.net/safe_image.php?d=AQDpHmJOzORmI5Ma&w=180&h=540&url=http%3A%2F%2Fupload.wikimedia.org%2Fwikipedia%2Fen%2Fc%2Fc9%2FX-men-animated-series-intro.jpg&fallback=hub_tv&prefix=d"
 			}],
-	"y" : [ 
-			{	name: "Yanni",
+	"y" : [{	
+				name: "Yanni",
 				picture: "https://fbcdn-profile-a.akamaihd.net/hprofile-ak-ash2/158054_136007876429612_1298155064_n.jpg"
 			}],
-	"z" : [{picture: "z"}]
-}
+	"z" : [{
+				name: "Zorro",
+				picture: "https://fbcdn-profile-a.akamaihd.net/hprofile-ak-snc4/187821_92323146014_6971422_n.jpg"
+			}]
+};
 
 $(function() {
 	function checkCorrectness(ans, inp) {
@@ -215,7 +220,7 @@ $(function() {
 
 			console.log(randLike);
 
-			initJumble(randLike.toLowerCase());
+			JMBL.initJumble(randLike.toLowerCase());
 
 		});
 	}
@@ -254,7 +259,7 @@ $(function() {
 	}
 
 
-    window.initJumble = function (word) {
+    JMBL.initJumble = function (word) {
 		// This is our word. This would be returned by our getLike() function or its equivalent;
 		// For testing purposes it is currently hardcoded.
 		
@@ -295,9 +300,7 @@ $(function() {
 		});
 
 
-		// $( "#sortable" ).disableSelection();
-
-		timer();
+		
 
 		$("input.letter").bind("keyup", function () {
 			if(this.value != $(this).attr("data-letter")) {
@@ -310,6 +313,9 @@ $(function() {
 			alert($(this).attr("data-hint"));
 			timer(count - 5)
 		});
+
+		// Begin our timer
+		timer();
 
 	}
 
@@ -327,7 +333,7 @@ $(function() {
 		counter=setInterval(timer, 1000); //1000 will  run it every 1 second
 
 		function timer() {
-		  count=count-1;
+		  count = count - 1;
 		  $("#timer b").text("00:" + count);
 
 		  if (count == 5) {
