@@ -23,7 +23,7 @@ $(function() {
 	window.getLike = function() {
 		// get the first like
 		// todo: get a random like
-		FB.api("/me/likes?access_token=AAAAAAITEghMBAC7vv0diw14D5wZCCRGf02b0xzaAk6uZArhNLR5Xqr3p6qiQDTqP36nEGDN7fY419EldcgAdu2VzKEo8kmfkKqnKSeogZDZD",{
+		FB.api("/me/likes/",{
   			fields: 'name',
   			limit: 10
 		}, function(res){
@@ -57,7 +57,7 @@ $(function() {
 		// For testing purposes it is currently hardcoded.
 		
 
-		// word = 'house';
+		word = 'house';
 
 		var currentArray = [];
 		
