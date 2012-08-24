@@ -302,9 +302,7 @@ $(function() {
 				currentArray = $("#sortable").sortable('toArray');
 				// Check to see if word is complete
 				checkCorrectness(word, currentArray.join(""));
-			},
-
-			handle: "li img"
+			}
 		});
 
 
@@ -335,7 +333,6 @@ $(function() {
 			count = newCount;
 		} else {
 			count = 91;
-			$( "#sortable" ).sortable('enable');
 		}
 
 		counter=setInterval(timer, 1000); //1000 will  run it every 1 second
