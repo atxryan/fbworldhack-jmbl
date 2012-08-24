@@ -7,12 +7,50 @@ body {
 	border: 1px solid #C4CDE2;
 	overflow: hidden;
 	max-width: 760px;
-	margin: 0 auto;
+	margin: 20px auto;
+	position:relative;
 }
 .logo {
 	display:block;
 	margin:20px auto;
 }
+#timer {
+	position: absolute;
+	right: 30px;
+	top: 30px;
+	background: white;
+	padding: 4px;
+	font-size: 28px;
+	float: right;
+	color: white;
+	border-radius:5px;
+	border:1px solid #C4CDE2;
+	-webkit-font-smoothing: antialiased;
+}
+#timer b {
+	background-color:#000;
+	padding:5px;
+	display:block;
+}
+#timer.urgent b {
+	background-color:#CC0000;
+	-webkit-animation-name:urgent;
+	-webkit-animation-duration: 1s;
+	-webkit-animation-iteration-count:5;
+}
+@-webkit-keyframes urgent {
+	0% {
+		background-color: #CC0000;
+		opacity: 1.0;
+	}
+	 50% {
+		opacity: 0.5;
+	}
+	 100% {
+		opacity: 1.0;
+	}
+}
+
 .demo ul {
 	list-style-type: none;
 	margin: 0;
@@ -24,22 +62,51 @@ body {
 	padding: 5px;
 	width: 150px;
 }
+#sortablewrapper {
+	float: left;
+	width: 100%;
+	position: relative;
+	margin-bottom:10px;
+}
 #sortable { 
 	list-style-type: none; 
 	margin: 0; 
 	padding: 0;
+	clear: left;
+	float: left;
+	position: relative;
+	left: 50%;
+	text-align: center;
 }
-
 #sortable li { 
+	right: 50%;
+	position: relative;
 	line-height: 1.25em;
 	text-transform: uppercase;
 	background: white;
-	margin: .5%;
-	padding: .5%;
+	margin: 5px;
+	padding: 3px;
 	float: left;
-	width: 10%;
+	width: 75px;
 	font-size: 4em;
 	text-align: center;
 	cursor: move;
 	border: 1px solid red;
+}
+#sortable.complete li {
+	border 1px solid green;
+}
+#correct {
+	border: 1px solid #CCC;
+	background-color: white;
+	width: 33%;
+	text-align: center;
+	margin: 20px auto;
+	padding: 15px;
+	font-size: 20px;
+	clear: both;
+	display: block;
+}
+#correct .all {
+	border: 1px solid green;
 }
