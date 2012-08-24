@@ -96,3 +96,17 @@ body {
 #sortable.complete li {
 	border 1px solid green;
 }
+#correct {
+	border: 1px solid #CCC;
+	background-color: white;
+	width: 33%;
+	text-align: center;
+	margin: 20px auto;
+	padding: 15px;
+	font-size: 20px;
+	clear: both;
+	display: block;
+}
+#correct .all {
+	border: 1px solid green;
+}
