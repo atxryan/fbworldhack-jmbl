@@ -11,51 +11,190 @@ function checkCorrectness(ans, inp) {
 
 	if (count == ans.length) {
 		$("#sortable").addClass("complete");
+		clearInterval(counter);
+		sendRequestToRecipients(friend_ids.join(","));
 	} else {
 		$("#sortable").removeClass("complete");
 	}
 }
 
+function publishToWall(friendID) {
+     FB.ui(
+       {
+         method: 'stream.publish',
+         message: 'Message here.',
+         attachment: {
+           name: 'Play JumbleFriend',
+           caption: 'Identify your friend\'s photos and unscramble one of your Likes.',
+           description: (
+             ''
+           ),
+           href: 'http://apps.facebook.com/jumblefriend/'
+         },
+         action_links: [
+           { text: 'Play JumbleFriend', href: 'http://apps.facebook.com/jumblefriend/' }
+         ],
+         user_prompt_message: 'Personal message here'
+       },
+       function(response) {
+         if (response && response.post_id) {
+           // alert('Post was published.');
+         } else {
+           // alert('Post was not published.');
+         }
+       }
+     );  
+  }
+
+var friend_ids = [];
+var counter;
+
+var count = 91;
 
 var lettersAsFriends = {
-	"0" : [{picture: "http://www.macrobusiness.com.au/wp-content/uploads/2012/06/zero2.jpeg"}],
-	"1" : [],
-	"2" : [],
-	"3" : [],
-	"4" : [],
-	"5" : [],
-	"6" : [],
-	"7" : [],
-	"8" : [],
-	"8" : [],
-	"9" : [],
-" " : [],
-	"a" : [],
-	"b" : [],
-	"c" : [],
-	"d" : [],
-	"e" : [],
-	"f" : [],
-	"g" : [],
-	"h" : [],
-	"i" : [],
-	"j" : [],
-	"k" : [],
-	"l" : [],
-	"m" : [],
-	"n" : [],
-	"o" : [],
-	"p" : [],
-	"q" : [],
-	"r" : [],
-	"s" : [],
-	"t" : [],
-	"u" : [],
-	"v" : [],
-	"w" : [],
-	"x" : [],
-	"y" : [],
-	"z" : [{picture: "http://www.macrobusiness.com.au/wp-content/uploads/2012/06/zero2.jpeg"}]
+	"0" : [ // Coke Zero
+			{picture: "https://fbcdn-profile-a.akamaihd.net/hprofile-ak-snc4/41806_61124008229_1102100254_n.jpg"}],
+	"1" : [{	
+				name: "1",
+				picture: "https://fbcdn-profile-a.akamaihd.net/hprofile-ak-snc4/373001_345986695424990_468649902_n.jpg"
+			}],
+	"2" : [{	
+				name: "2",
+				picture: ""
+			}],
+	"3" : [{	
+				name: "3",
+				picture: ""
+			}],
+	"4" : [{	
+				name: "4",
+				picture: ""
+			}],
+	"5" : [{	
+				name: "5",
+				picture: ""
+			}],
+	"6" : [{	
+				name: "6",
+				picture: ""
+			}],
+	"7" : [{	
+				name: "7",
+				picture: ""
+			}],
+	"8" : [{	
+				name: "8",
+				picture: ""
+			}],
+	"9" : [{	
+				name: "9",
+				picture: ""
+			}],
+	" " : [{	
+				name: "a blank space",
+				picture: ""
+			}],
+	"a" : [{	
+				name: "a",
+				picture: ""
+			}],
+	"b" : [{	
+				name: "",
+				picture: ""
+			}],
+	"c" : [{	
+				name: "c",
+				picture: ""
+			}],
+	"d" : [{	
+				name: "d",
+				picture: ""
+			}],
+	"e" : [{	
+				name: "e",
+				picture: ""
+			}],
+	"f" : [{	
+				name: "f",
+				picture: ""
+			}],
+	"g" : [{	
+				name: "g",
+				picture: ""
+			}],
+	"h" : [{	
+				name: "h",
+				picture: ""
+			}],
+	"i" : [{	
+				name: "i",
+				picture: ""
+			}],
+	"j" : [{	
+				name: "",
+				picture: ""
+			}],
+	"k" : [{	
+				name: "k",
+				picture: ""
+			}],
+	"l" : [{	
+				name: "l",
+				picture: ""
+			}],
+	"m" : [{	
+				name: "m",
+				picture: ""
+			}],
+	"n" : [{	
+				name: "n",
+				picture: ""
+			}],
+	"o" : [ 
+			{	name: "Ocean Spray",
+				picture: "https://fbcdn-profile-a.akamaihd.net/hprofile-ak-ash2/373019_117917151585263_710015587_n.jpg"
+			}],
+	"p" : [{	
+				name: "p",
+				picture: ""
+			}],
+	"q" : [{	
+				name: "q",
+				picture: ""
+			}],
+	"r" : [{	
+				name: "r",
+				picture: ""
+			}],
+	"s" : [{	
+				name: "s",
+				picture: ""
+			}],
+	"t" : [{	
+				name: "t",
+				picture: ""
+			}],
+	"u" : [{	
+				name: "Usher",
+				picture: "https://fbcdn-profile-a.akamaihd.net/hprofile-ak-ash2/592186_6564142497_957091799_n.jpg"
+			}],
+	"v" : [{	
+				name: "v",
+				picture: ""
+			}],
+	"w" : [{	
+				name: "w",
+				picture: ""
+			}],
+	"x" : [{	
+				name: "X-men",
+				picture: "https://fbexternal-a.akamaihd.net/safe_image.php?d=AQDpHmJOzORmI5Ma&w=180&h=540&url=http%3A%2F%2Fupload.wikimedia.org%2Fwikipedia%2Fen%2Fc%2Fc9%2FX-men-animated-series-intro.jpg&fallback=hub_tv&prefix=d"
+			}],
+	"y" : [ 
+			{	name: "Yanni",
+				picture: "https://fbcdn-profile-a.akamaihd.net/hprofile-ak-ash2/158054_136007876429612_1298155064_n.jpg"
+			}],
+	"z" : [{picture: "z"}]
 }
 
 $(function() {
@@ -70,7 +209,7 @@ $(function() {
 			var scrubbedArray = [];
 
 			for (var x = 0; x < res.data.length; x++) {
-				if (res.data[x].name.length <= 8 && /^[a-zA-Z0-9]*$/.test(res.data[x].name)) {
+				if (res.data[x].name.length <= 8 && /^[a-zA-Z0-9 ]*$/.test(res.data[x].name)) {
 					scrubbedArray.push( res.data[x] );
 				}
 			}
@@ -143,8 +282,11 @@ $(function() {
 		for(var x = 0; x < shuffled.length; x++) {
 			// Dirty. Build a text snippet of the HTML;
 			console.log(shuffled[x].toLowerCase());
+
+			friend = shuffle(lettersAsFriends[shuffled[x]])[0];
+			friend_ids.push(friend.id);
 			shuffledSnippet += '<li class="ui-state-default disabled" id="' + shuffled[x] + '">';
-			shuffledSnippet += '<img src="' + shuffle(lettersAsFriends[shuffled[x]])[0].picture + '" />'
+			shuffledSnippet += '<img src="' + friend.picture + '" width="65" height="65" data-hint="' + friend.name + '"/>'
 			shuffledSnippet += '<span><input type="text" class="letter" data-letter="' + shuffled[x] + '"/></span></li>';
 		}
 
@@ -175,13 +317,25 @@ $(function() {
 				$(this).parent().parent().removeClass("disabled");
 			}
 		});
+		$("li img").bind("dblclick", function () {
+			alert($(this).attr("data-hint"));
+			timer(count - 5)
+		});
 
 	}
 
-	function timer() {
-		var count=60;
+	function timer(newCount) {
 
-		var counter=setInterval(timer, 1000); //1000 will  run it every 1 second
+		
+		clearInterval(counter);
+
+		if (newCount) {
+			count = newCount;
+		} else {
+			count = 91;
+		}
+
+		counter=setInterval(timer, 1000); //1000 will  run it every 1 second
 
 		function timer() {
 		  count=count-1;
@@ -199,7 +353,6 @@ $(function() {
 		     return;
 		  }
 
-		  //Do code for showing the number of seconds here
 		}
 	}
 });

@@ -97,6 +97,7 @@ body {
 	border: none;
 	border-bottom: 1px solid #000;
 	width: 65px;
+	height: 65px;
 	text-align: center;
 	text-transform: uppercase;
 }
@@ -119,4 +120,8 @@ body {
 }
 #correct .all {
 	border: 1px solid green;
+}
+button {
+	margin: 0 auto;
+	display: block;
 }

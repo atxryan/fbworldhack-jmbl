@@ -56,6 +56,23 @@
         });
       };
 
+      function sendRequestToRecipients(user_ids) {
+        FB.ui({method: 'apprequests',
+          message: 'Hey! Your picture just helped me solve a word jumble. You should play.',
+          to: user_ids
+        }, requestCallback);
+      }
+
+      function sendRequestViaMultiFriendSelector() {
+        FB.ui({method: 'apprequests',
+          message: 'My Great Request'
+        }, requestCallback);
+      }
+      
+      function requestCallback(response) {
+        // Handle callback here
+      }
+
       // Load the SDK Asynchronously
       (function(d, s, id) {
         var js, fjs = d.getElementsByTagName(s)[0];
@@ -68,15 +85,21 @@
 
 
 <div class="demo">
+
+  
 <img src="images/jumblefriendlogo.png" class="logo">
 
 	<div id="timer">
 		<b>
 		<!-- Obviously replace this with the JS timer -->
 		<!-- At 5 seconds, set a class of "urgent" on the timer and it will pulsate red -->
-		00:60
 		</b>
 	</div>
+
+<p>
+    Welcome to Jumblefriend! How well do you know your friends? Each picture corresponds to the first letter of your friend's name. All together, the letters form a word from your Facebook Likes. Fill in the letters for each friend, then drag the letters to descramble the word in the shortest amount of time to win! If you get stuck, you can doubleclick the picture for a hint, but use hints sparingly: Each hint deducts 5 seconds from your time.
+  </p>
+
 
 	<div id="sortablewrapper">
 		<ul id="sortable">
@@ -84,7 +107,9 @@
 	</div>
   <div id="correct"></div>
 
-<button onclick="getFriends()">Refresh Jumble</button>
+<button onclick="getFriends();timer(91);">Refresh Jumble</button>
+
+  <p>This was built by <a href="https://www.facebook.com/nerdland">Adam</a>, <a href="https://www.facebook.com/aminehachimy">Amine</a>, <a href="https://www.facebook.com/atxryan">Ryan</a>, <a href="https://www.facebook.com/vuacotuong">Quan</a>, and <a href="https://www.facebook.com/manavkataria">Manav</a> as part of <a href="https://austin.fbworldhack.com/portal/login.ww">Facebook Developers World HACK</a> in Austin, TX on August 23rd, 2012.
 </div><!-- End demo -->
 
 
