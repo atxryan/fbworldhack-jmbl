@@ -40,21 +40,32 @@
 
         FB.Canvas.setAutoGrow();
 
-        FB.login(function(response) {
-           if (response.authResponse) {
-             console.log('Welcome!  Fetching your information.... ');
-             FB.api('/me', function(response) {
-               console.log('Good to see you, ' + response.name + '.');
-             });
-           } else {
-             console.log('User cancelled login or did not fully authorize.');
-           }
-         });
+        
 
         FB.getLoginStatus(function(response){
-          window.getFriends();
+          if (response.status === 'connected') {
+            // the user is logged in and has authenticated your
+            // app, and response.authResponse supplies
+            // the user's ID, a valid access token, a signed
+            // request, and the time the access token 
+            // and signed request each expire
+            var uid = response.authResponse.userID;
+            var accessToken = response.authResponse.accessToken;
+
+            $("#login").hide();
+
+            window.getFriends();
+
+          } else if (response.status === 'not_authorized') {
+            // the user is logged in to Facebook, 
+            // but has not authenticated your app
+          } else {
+            // the user isn't logged in to Facebook.
+          }
+          
         });
       };
+      
 
       function sendRequestToRecipients(user_ids) {
         FB.ui({method: 'apprequests',
@@ -89,6 +100,8 @@
   
 <img src="images/jumblefriendlogo.png" class="logo">
 
+<button onclick="FB.login();" id="login">Login</button>
+
 	<div id="timer">
 		<b>
 		<!-- Obviously replace this with the JS timer -->
@@ -96,8 +109,12 @@
 		</b>
 	</div>
 
-<p>
-    Welcome to Jumblefriend! How well do you know your friends? Each picture corresponds to the first letter of your friend's name. All together, the letters form a word from your Facebook Likes. Fill in the letters for each friend, then drag the letters to descramble the word in the shortest amount of time to win! If you get stuck, you can doubleclick the picture for a hint, but use hints sparingly: Each hint deducts 5 seconds from your time.
+  <p>
+    Welcome to Jumblefriend! How well do you know your friends' faces? Each picture corresponds to the first letter of your friend's name. All together, the letters form a word from your Facebook Likes. 
+  </p>
+
+  <p>
+      Fill in the letters for each friend, then drag the letters to descramble the word in the shortest amount of time to win! If you get stuck, you can doubleclick the picture for a hint, but use hints sparingly: Each hint deducts 5 seconds from your time.
   </p>
 
 
