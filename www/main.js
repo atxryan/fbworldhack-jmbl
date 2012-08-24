@@ -78,7 +78,7 @@ $(function() {
 			var randLike = scrubbedArray[randNum].name;
 
 			console.log(randLike);
-			initJumble(randLike);
+			initJumble(randLike.toLowerCase());
 
 
 			
@@ -138,17 +138,14 @@ $(function() {
 		var charsArray = word.split('');
 			shuffled = shuffle(charsArray);
 
-		console.log("Original", charsArray)
-		console.log("Shuffled", shuffled);
-
 
 		var shuffledSnippet = '';
 		for(var x = 0; x < shuffled.length; x++) {
 			// Dirty. Build a text snippet of the HTML;
 			console.log(shuffled[x].toLowerCase());
-			shuffledSnippet += '<li class="ui-state-default" id="' + shuffled[x] + '">';
-			shuffledSnippet += '<img src="' + lettersAsFriends[shuffled[x].toLowerCase()][0].picture + '" />'
-			shuffledSnippet += '<span>' + shuffled[x] + '</span></li>';
+			shuffledSnippet += '<li class="ui-state-default disabled" id="' + shuffled[x] + '">';
+			shuffledSnippet += '<img src="' + shuffle(lettersAsFriends[shuffled[x]])[0].picture + '" />'
+			shuffledSnippet += '<span><input type="text" class="letter" data-letter="' + shuffled[x] + '"/></span></li>';
 		}
 
 		// Inject the text snippet as the #sortable html
@@ -157,15 +154,10 @@ $(function() {
 
 
 		$( "#sortable" ).sortable({
+			cancel: ".disabled",
+
 			stop: function(event, ui) { 
 				currentArray = $("#sortable").sortable('toArray');
-
-				// console.log(currentArray.join(""));
-				// console.log(charsArray);
-
-				// Check to see if current letter is in correct spot
-				// checkLetterPositionCorrectness();
-
 				// Check to see if word is complete
 				checkCorrectness(word, currentArray.join(""));
 			}
@@ -175,6 +167,14 @@ $(function() {
 		$( "#sortable" ).disableSelection();
 
 		timer();
+
+		$("input.letter").bind("keyup", function () {
+			if(this.value != $(this).attr("data-letter")) {
+				this.value = "";
+			} else {
+				$(this).parent().parent().removeClass("disabled");
+			}
+		});
 
 	}
 

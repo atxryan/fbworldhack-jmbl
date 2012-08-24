@@ -40,8 +40,19 @@
 
         FB.Canvas.setAutoGrow();
 
+        FB.login(function(response) {
+           if (response.authResponse) {
+             console.log('Welcome!  Fetching your information.... ');
+             FB.api('/me', function(response) {
+               console.log('Good to see you, ' + response.name + '.');
+             });
+           } else {
+             console.log('User cancelled login or did not fully authorize.');
+           }
+         });
+
         FB.getLoginStatus(function(response){
-          window.getFriends()
+          window.getFriends();
         });
       };
 
@@ -63,7 +74,7 @@
 		<b>
 		<!-- Obviously replace this with the JS timer -->
 		<!-- At 5 seconds, set a class of "urgent" on the timer and it will pulsate red -->
-		00:30
+		00:60
 		</b>
 	</div>
 
@@ -73,7 +84,7 @@
 	</div>
   <div id="correct"></div>
 
-<button onclick="getLike()">Refresh Jumble</button>
+<button onclick="getFriends()">Refresh Jumble</button>
 </div><!-- End demo -->
 
 
