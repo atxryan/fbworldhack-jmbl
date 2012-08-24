@@ -57,7 +57,7 @@ $(function() {
 		// For testing purposes it is currently hardcoded.
 		
 
-		word = 'house';
+		word = 'facebook';
 
 		var currentArray = [];
 		
