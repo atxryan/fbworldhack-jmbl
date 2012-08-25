@@ -304,11 +304,11 @@ $(function() {
 			if(this.value != $(this).attr("data-letter")) {
 				this.value = "";
 				//TODO: Color Red
-				$(this).setAttribute('color','red');
+				$(this).attr('color','red');
 			} else {
 				//TODO: Color Green
 				$(this).parent().parent().removeClass("disabled");
-				$(this).setAttribute('color','green');				
+				$(this).attr('color','green');				
 			}
 		});
 		$("li img").bind("dblclick", function () {
