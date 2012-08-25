@@ -39,9 +39,7 @@
           window.location = window.location;
         });
 
-        FB.Canvas.setAutoGrow();
-
-        
+        FB.Canvas.setAutoGrow();      
 
         FB.getLoginStatus(function(response){
           if (response.status === 'connected') {
@@ -88,7 +86,7 @@
 
 <div class="demo">
 
-  
+ 
 <img src="images/jumblefriendlogo.png" class="logo">
 
 <button onclick="FB.login();" id="login">Login</button>

@@ -299,14 +299,16 @@ $(function() {
 			}
 		});
 
-
-		
-
+		//validating inputs
 		$("input.letter").bind("keyup", function () {
 			if(this.value != $(this).attr("data-letter")) {
 				this.value = "";
+				//TODO: Color Red
+				$(this).setAttribute('color','red');
 			} else {
+				//TODO: Color Green
 				$(this).parent().parent().removeClass("disabled");
+				$(this).setAttribute('color','green');				
 			}
 		});
 		$("li img").bind("dblclick", function () {
