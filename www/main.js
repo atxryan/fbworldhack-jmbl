@@ -200,8 +200,6 @@ $(function() {
 			$("#sortable").addClass("complete");
 			clearInterval(counter);
 			alert('Hurray! You\'ve completed the puzzle!');
-			JMBL.getFriends();
-			timer(91);
 			sendRequestToRecipients(friend_ids.join(","));
 		} else {
 			$("#sortable").removeClass("complete");
