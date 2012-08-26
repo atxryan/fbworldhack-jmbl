@@ -193,13 +193,15 @@ $(function() {
 			}
 		}
 		
-		$("#correct").html(count + "/" + ans.length + " are correct.");
+		$("#correct").html(count + "/" + ans.length + " tiles at correct position.");
 
 		if (count == ans.length) {
 			//Puzzle Solved
 			$("#sortable").addClass("complete");
 			clearInterval(counter);
-			alert('You\'ve completed the puzzle! Try again by clicking \'Refresh Jumble\'');
+			alert('Hurray! You\'ve completed the puzzle!');
+			JMBL.getFriends();
+			timer(91);
 			sendRequestToRecipients(friend_ids.join(","));
 		} else {
 			$("#sortable").removeClass("complete");
@@ -281,7 +283,7 @@ $(function() {
 
 			friend = shuffle(lettersAsFriends[shuffled[x]])[0];
 			friend_ids.push(friend.id);
-			shuffledSnippet += '<li class="ui-state-default disabled" id="' + shuffled[x] + '">';
+			shuffledSnippet += '<li class="ui-state-default" id="' + shuffled[x] + '">';
 			shuffledSnippet += '<img src="' + friend.picture + '" width="65" height="65" data-hint="' + friend.name + '"/>'
 			shuffledSnippet += '<span><input type="text" class="letter" data-letter="' + shuffled[x] + '"/></span></li>';
 		}
@@ -347,7 +349,9 @@ $(function() {
 		  if (count <= 0) {
 		     clearInterval(counter);
 		     $( "#sortable" ).sortable('disable');
-			 alert('Time Up! Try again by clicking \'Refresh Jumble\'') 
+			 alert('Time Up!')
+			 JMBL.getFriends();
+			 timer(91);			 
 		     return;
 		  }
 
