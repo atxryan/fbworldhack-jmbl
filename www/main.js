@@ -191,12 +191,15 @@ $(function() {
 			if (ans[i] == inp[i]) {
 				count++;
 			}
-		}	
+		}
+		
 		$("#correct").html(count + "/" + ans.length + " are correct.");
 
 		if (count == ans.length) {
+			//Puzzle Solved
 			$("#sortable").addClass("complete");
 			clearInterval(counter);
+			alert('You\'ve completed the puzzle! Try again by clicking \'Refresh Jumble\'');
 			sendRequestToRecipients(friend_ids.join(","));
 		} else {
 			$("#sortable").removeClass("complete");
@@ -262,8 +265,7 @@ $(function() {
     JMBL.initJumble = function (word) {
 		// This is our word. This would be returned by our getLike() function or its equivalent;
 		// For testing purposes it is currently hardcoded.
-		
-
+	
 		//word = 'facebook';
 
 		var currentArray = [];
@@ -286,8 +288,6 @@ $(function() {
 
 		// Inject the text snippet as the #sortable html
 		$("#sortable").html(shuffledSnippet);
-
-
 
 		$( "#sortable" ).sortable({
 			cancel: ".disabled",
@@ -326,8 +326,6 @@ $(function() {
 	}
 
 	function timer(newCount) {
-
-		
 		clearInterval(counter);
 
 		if (newCount) {
@@ -349,8 +347,7 @@ $(function() {
 		  if (count <= 0) {
 		     clearInterval(counter);
 		     $( "#sortable" ).sortable('disable');
-
-
+			 alert('Time Up! Try again by clicking \'Refresh Jumble\'') 
 		     return;
 		  }
 
