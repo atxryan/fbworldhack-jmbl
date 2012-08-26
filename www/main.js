@@ -297,7 +297,11 @@ $(function() {
 				// Check to see if word is complete
 				checkCorrectness(word, currentArray.join(""));
 			}
-		});
+		});	
+
+		currentArray = $("#sortable").sortable('toArray');
+		// Check to see if word is complete
+		checkCorrectness(word, currentArray.join(""));		
 
 		//validating inputs
 		$("input.letter").bind("keyup", function () {
