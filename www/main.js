@@ -347,14 +347,8 @@ $(function() {
 		  }
 		  
 		  if (count <= 0) {
-			 if (count == 0) {
-				alert('Time Up!');
-			 }
-			 
 			 clearInterval(counter);
 		     $( "#sortable" ).sortable('disable');
-			 JMBL.getFriends();
-			 timer(91);			 
 		     return;
 		  }
 
