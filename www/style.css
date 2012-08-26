@@ -91,7 +91,7 @@ body {
 	font-size: 4em;
 	text-align: center;
 	cursor: move;
-	border: 1px solid red;
+	border: 2px solid red;
 }
 #sortable li input {
 	border: 1px solid #CCC;
@@ -104,10 +104,10 @@ body {
 #sortable li span {}
 
 #sortable.complete li {
-	border: 1px solid green;
+	border: 2px solid green;
 }
 #correct {
-	border: 1px solid #CCC;
+	border: 2px solid #CCC;
 	background-color: white;
 	width: 33%;
 	text-align: center;
@@ -118,7 +118,7 @@ body {
 	display: block;
 }
 #correct .all {
-	border: 1px solid green;
+	border: 2px solid green;
 }
 button {
 	margin: 0 auto;
