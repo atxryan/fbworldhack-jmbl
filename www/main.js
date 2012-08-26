@@ -193,7 +193,7 @@ $(function() {
 			}
 		}
 		
-		$("#correct").html(count + "/" + ans.length + " tiles at correct position.");
+		$("#correct").html(count + "/" + ans.length + " tiles at correct position");
 
 		if (count == ans.length) {
 			//Puzzle Solved
@@ -283,7 +283,7 @@ $(function() {
 
 			friend = shuffle(lettersAsFriends[shuffled[x]])[0];
 			friend_ids.push(friend.id);
-			shuffledSnippet += '<li class="ui-state-default" id="' + shuffled[x] + '">';
+			shuffledSnippet += '<li class="ui-state-default disabled" id="' + shuffled[x] + '">';
 			shuffledSnippet += '<img src="' + friend.picture + '" width="65" height="65" data-hint="' + friend.name + '"/>'
 			shuffledSnippet += '<span><input type="text" class="letter" data-letter="' + shuffled[x] + '"/></span></li>';
 		}
