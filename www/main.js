@@ -224,7 +224,6 @@ $(function() {
 			console.log(randLike);
 
 			JMBL.initJumble(randLike.toLowerCase());
-
 		});
 	}
 
@@ -238,11 +237,8 @@ $(function() {
 					
 					if (lettersAsFriends[firstLetter])
 					  lettersAsFriends[firstLetter].push(res.data[x]);
-
 				}
-
 				getLike();
-			
 		});
 	}
 
@@ -305,7 +301,9 @@ $(function() {
 
 		//validating inputs
 		$("input.letter").bind("keyup", function () {
-			if(this.value != $(this).attr("data-letter")) {
+			inputchar = this.value.toLowerCase();
+			
+			if(inputchar != $(this).attr("data-letter")) {
 				this.value = "";
 				$(this).attr('style','color:red');
 			} else {
