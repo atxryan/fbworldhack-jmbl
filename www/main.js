@@ -307,12 +307,10 @@ $(function() {
 		$("input.letter").bind("keyup", function () {
 			if(this.value != $(this).attr("data-letter")) {
 				this.value = "";
-				//TODO: Color Red
-				$(this).attr('color','red');
+				$(this).attr('style','color:red');
 			} else {
-				//TODO: Color Green
 				$(this).parent().parent().removeClass("disabled");
-				$(this).attr('color','green');				
+				$(this).attr('style','color:green');				
 			}
 		});
 		$("li img").bind("dblclick", function () {
@@ -342,7 +340,7 @@ $(function() {
 
 		  if (count == 5) {
 		  	$("#timer").addClass("urgent");
-		  }
+		  }		  
 		  
 		  if (count <= 0) {
 			 clearInterval(counter);
