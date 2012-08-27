@@ -299,7 +299,8 @@ $(function() {
 		// Check to see if word is complete
 		checkCorrectness(word, currentArray.join(""));		
 
-		//validating inputs
+		//validating inputs 
+		console.log('Heroku isnt updating this file!');
 		$("input.letter").bind("keyup", function () {
 			inputchar = this.value.toLowerCase();
 			
