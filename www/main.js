@@ -300,13 +300,12 @@ $(function() {
 		checkCorrectness(word, currentArray.join(""));		
 
 		//validating inputs 
-		console.log('Heroku isnt updating this file!');
 		$("input.letter").bind("keyup", function () {
 			inputchar = this.value.toLowerCase();
 			
 			if(inputchar != $(this).attr("data-letter")) {
-				this.value = "";
 				$(this).attr('style','color:red');
+				//this.value = "";
 			} else {
 				$(this).parent().parent().removeClass("disabled");
 				$(this).attr('style','color:green');				
