@@ -199,8 +199,9 @@ $(function() {
 			//Puzzle Solved
 			$("#sortable").addClass("complete");
 			clearInterval(counter);
-			alert('Hurray! You\'ve completed the puzzle!');
-			sendRequestToRecipients(friend_ids.join(","));
+			alert('Hurray! You\'ve completed the puzzle! Try the next one, click Refresh Jumble');
+			//Disabling till product gets improvised.
+			//sendRequestToRecipients(friend_ids.join(","));
 		} else {
 			$("#sortable").removeClass("complete");
 		}
