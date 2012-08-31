@@ -28,7 +28,6 @@ function publishToWall() {
 
 var friend_ids = [];
 var counter;
-
 var count = 91;
 
 var lettersAsFriends = {
@@ -183,6 +182,22 @@ var lettersAsFriends = {
 };
 
 $(function() {
+
+	function myInfo() {
+		FB.api("/me/",
+			{fields : "name"},
+			function(res){
+				console.log(res);
+				console(res.data[0].name);
+				//console(res.data.name);
+				
+				var rootRef = new Firebase('http://gamma.firebase.com/ManavKataria/SandBox/JumbleFriend/');
+				var scoreListRef = rootRef.child(res.data[0].name);
+				
+  
+		});
+	}	
+	
 	function checkCorrectness(ans, inp) {
 		var i;
 		var count = 0;
@@ -206,9 +221,9 @@ $(function() {
 			$("#sortable").removeClass("complete");
 		}
 	}
+	
+	// Get a random like
 	function getLike() {
-		// get the first like
-		// todo: get a random like
 		FB.api("/me/likes/", 
 			function(res){
 			
