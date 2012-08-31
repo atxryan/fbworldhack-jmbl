@@ -198,8 +198,6 @@ $(function() {
 		});
 	}	
 	
-	myInfo();
-	
 	function checkCorrectness(ans, inp) {
 		var i;
 		var count = 0;
@@ -258,6 +256,9 @@ $(function() {
 				}
 				getLike();
 		});
+		
+		myInfo();
+	
 	}
 
 	// Simple array shuffle function; feel free to update algorithm;
