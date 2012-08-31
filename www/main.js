@@ -198,6 +198,8 @@ $(function() {
 		});
 	}	
 	
+	myInfo();
+	
 	function checkCorrectness(ans, inp) {
 		var i;
 		var count = 0;
