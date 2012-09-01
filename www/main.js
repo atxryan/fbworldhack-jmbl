@@ -33,13 +33,14 @@ var count = 91;
 /* Firebase and Metrics */
 function myInfo() {
 	FB.api("/me/",
-		{fields : "name,link,picture"},
+		{fields : "name,link"},
 		function(res){
 			console.log(res);
 			
 			var rootRef = new Firebase('http://gamma.firebase.com/ManavKataria/SandBox/JumbleFriend/');
-			var scoreListRef = rootRef.child('UserData');			
-			var scoreListRef = scoreListRef.set({username: res.name, link: res.link});
+			var scoreListRef = rootRef.child('UserData');	
+			//Push incorporates a hashed timestamp as node name		
+			scoreListRef.push({username: res.name, link: res.link});
 	});
 }	
 
@@ -347,7 +348,7 @@ $(function() {
 			count = 91;
 		}
 
-		counter=setInterval(timer, 1000); //1000 will  run it every 1 second
+		counter=setInterval(timer, 1000); //1000 will  run it veery 1 second
 
 		function timer() {
 		  count = count - 1;
