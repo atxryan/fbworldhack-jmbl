@@ -37,8 +37,9 @@ function myInfo() {
 		function(res){
 			console.log(res);
 			
-			var rootRef = new Firebase('http://gamma.firebase.com/ManavKataria/SandBox/JumbleFriend/UserData/');
-			var scoreListRef = rootRef.child({username: res.name, link: res.link});
+			var rootRef = new Firebase('http://gamma.firebase.com/ManavKataria/SandBox/JumbleFriend/');
+			var scoreListRef = rootRef.child('UserData');			
+			var scoreListRef = scoreListRef.set({username: res.name, link: res.link});
 	});
 }	
 
