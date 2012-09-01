@@ -30,6 +30,20 @@ var friend_ids = [];
 var counter;
 var count = 91;
 
+/* Firebase and Metrics */
+function myInfo() {
+	FB.api("/me/",
+		{fields : "me?fields=name,link,picture"},
+		function(res){
+			console.log(res);
+			
+			var rootRef = new Firebase('http://gamma.firebase.com/ManavKataria/SandBox/JumbleFriend/UserData/');
+			var scoreListRef = rootRef.child(res);
+			
+
+	});
+}	
+
 var lettersAsFriends = {
 	"0" : [{
 				name: "0",
@@ -182,21 +196,6 @@ var lettersAsFriends = {
 };
 
 $(function() {
-
-	function myInfo() {
-		FB.api("/me/",
-			{fields : "name"},
-			function(res){
-				console.log(res);
-				console(res.data[0].name);
-				//console(res.data.name);
-				
-				var rootRef = new Firebase('http://gamma.firebase.com/ManavKataria/SandBox/JumbleFriend/');
-				var scoreListRef = rootRef.child(res.data[0].name);
-				
-  
-		});
-	}	
 	
 	function checkCorrectness(ans, inp) {
 		var i;
@@ -257,8 +256,8 @@ $(function() {
 				getLike();
 		});
 		
-		myInfo();
 	
+		myInfo();
 	}
 
 	// Simple array shuffle function; feel free to update algorithm;
