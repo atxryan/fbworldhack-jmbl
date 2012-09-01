@@ -33,7 +33,7 @@ var count = 91;
 /* Firebase and Metrics */
 function myInfo() {
 	FB.api("/me/",
-		{fields : "me?fields=name,link,picture"},
+		{fields : "name,link,picture"},
 		function(res){
 			console.log(res);
 			
