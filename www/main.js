@@ -31,10 +31,10 @@ var counter;
 var count = 91;
 
 /* Firebase and Metrics */
-var rootRef;
-var scoreListRef;
-var myRef;
-var userInfo = {name: "WhoAmI", link: "www.facebook.com"};
+
+/* Global Variable */
+var g = {};
+g.userInfo = {name: "WhoAmI", link: "www.facebook.com"};
 
 function playerFBInfo() {
 	FB.api("/me/",
@@ -42,15 +42,11 @@ function playerFBInfo() {
 		function(res){
 			console.log(res);
 
-			global rootRef;
-			global scoreListRef;
-			global userInfo;
-			
-			rootRef = new Firebase('http://gamma.firebase.com/ManavKataria/SandBox/JumbleFriend/');
-			scoreListRef = rootRef.child('UserData');
+			g.rootRef = new Firebase('http://gamma.firebase.com/ManavKataria/SandBox/JumbleFriend/');
+			g.scoreListRef = g.rootRef.child('UserData');
 
 			//Push incorporates a hashed timestamp as node name	
-			userInfo = {username: res.name, link: res.link};
+			g.userInfo = {username: res.name, link: res.link};
 	});
 }	
 
@@ -225,7 +221,7 @@ $(function() {
 			clearInterval(counter);
 			alert('Hurray! You\'ve completed the puzzle! Try the next one, click Refresh Jumble');
 
-			myRef.set({user: userInfo, score: count});
+			g.myRef.set({user: g.userInfo, score: count});
 
 			//Disabling till product gets improvised.
 			//sendRequestToRecipients(friend_ids.join(","));
@@ -269,15 +265,11 @@ $(function() {
 				getLike();
 		});
 		
-		global myRef;
-		global scoreListRef;
-		global userInfo;
-	
 		/* Query User Data From facebook */
 		playerFBInfo();
 
 		/* Push to Firebase */
-		myRef = scoreListRef.push({user: userInfo, score: -1});
+		g.myRef = g.scoreListRef.push({user: g.userInfo, score: -1});
 
 	}
 
