@@ -36,11 +36,14 @@ var scoreListRef;
 var myRef;
 var userInfo = {name: "WhoAmI", link: "www.facebook.com"};
 
-function myInfo() {
+function playerFBInfo() {
 	FB.api("/me/",
 		{fields : "name,link"},
 		function(res){
 			console.log(res);
+
+			global rootRef;
+			global scoreListRef;
 			
 			rootRef = new Firebase('http://gamma.firebase.com/ManavKataria/SandBox/JumbleFriend/');
 			scoreListRef = rootRef.child('UserData');
@@ -265,9 +268,11 @@ $(function() {
 				getLike();
 		});
 		
+		global myRef;
+		global scoreListRef;
 	
 		/* Query User Data From facebook */
-		myInfo();
+		playerFBInfo();
 
 		/* Push to Firebase */
 		myRef = scoreListRef.push({user: userInfo, score: -1});
