@@ -34,7 +34,7 @@ var count = 91;
 
 /* Global Variable */
 var g = {};
-g.userInfo = {name: "WhoAmI", link: "www.facebook.com"};
+g.userInfo = {name: "WhoAmI", link: "www.facebook.com/me", like: "www.facebook.com/me/like"};
 
 function playerFBInfo() {
 	FB.api("/me/",
@@ -46,7 +46,7 @@ function playerFBInfo() {
 			g.scoreListRef = g.rootRef.child('UserData');
 
 			//Push incorporates a hashed timestamp as node name	
-			g.userInfo = {username: res.name, link: res.link};
+			g.userInfo = {username: res.name, link: res.link, like: g.userInfo.like};
 
 			/* Push to Firebase */
 			g.myRef = g.scoreListRef.push({user: g.userInfo, score: -1});
@@ -64,7 +64,7 @@ var lettersAsFriends = {
 			}],
 	"2" : [{	
 				name: "2",
-				picture: ""
+				picture: "http://images3.wikia.nocookie.net/__cb20100803191119/lyricwiki/images/thumb/9/9f/Axxis_-_II.jpg/180px-Axxis_-_II.jpg"
 			}],
 	"3" : [{	
 				name: "3",
@@ -224,7 +224,8 @@ $(function() {
 			clearInterval(counter);
 			alert('Hurray! You\'ve completed the puzzle! Try the next one, click Refresh Jumble');
 
-			g.myRef.set({user: g.userInfo, score: count});
+			// Push score to Firebase
+			g.myRef.set({user: g.userInfo, score: count, like: ans});
 
 			//Disabling till product gets improvised.
 			//sendRequestToRecipients(friend_ids.join(","));
