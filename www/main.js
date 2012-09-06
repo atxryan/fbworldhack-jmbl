@@ -34,17 +34,18 @@ var count = 91;
 var rootRef;
 var scoreListRef;
 var myRef;
+var userInfo = {name: "WhoAmI", link: "www.facebook.com"};
 
 function myInfo() {
 	FB.api("/me/",
 		{fields : "name,link"},
-		function(res){
+		return function(res){
 			console.log(res);
 			
 			rootRef = new Firebase('http://gamma.firebase.com/ManavKataria/SandBox/JumbleFriend/');
 			scoreListRef = rootRef.child('UserData');	
-			//Push incorporates a hashed timestamp as node name		
-			myRef = scoreListRef.push({username: res.name, link: res.link, score: 0});
+			//Push incorporates a hashed timestamp as node name	
+			return ({username: res.name, link: res.link});
 	});
 }	
 
@@ -218,7 +219,8 @@ $(function() {
 			$("#sortable").addClass("complete");
 			clearInterval(counter);
 			alert('Hurray! You\'ve completed the puzzle! Try the next one, click Refresh Jumble');
-			myRef = scoreListRef.push({username: res.name, link: res.link, score: count});
+
+			myRef.set({user: userInfo, score: count});
 
 			//Disabling till product gets improvised.
 			//sendRequestToRecipients(friend_ids.join(","));
@@ -263,7 +265,12 @@ $(function() {
 		});
 		
 	
-		myInfo();
+		/* Query User Data From facebook */
+		userInfo = myInfo();
+
+		/* Push to Firebase */
+		myRef = scoreListRef.push({user: userInfo, score: -1});
+
 	}
 
 	// Simple array shuffle function; feel free to update algorithm;
