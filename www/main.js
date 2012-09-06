@@ -47,6 +47,9 @@ function playerFBInfo() {
 
 			//Push incorporates a hashed timestamp as node name	
 			g.userInfo = {username: res.name, link: res.link};
+
+			/* Push to Firebase */
+			g.myRef = g.scoreListRef.push({user: g.userInfo, score: -1});
 	});
 }	
 
@@ -267,9 +270,6 @@ $(function() {
 		
 		/* Query User Data From facebook */
 		playerFBInfo();
-
-		/* Push to Firebase */
-		g.myRef = g.scoreListRef.push({user: g.userInfo, score: -1});
 
 	}
 
