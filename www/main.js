@@ -31,16 +31,20 @@ var counter;
 var count = 91;
 
 /* Firebase and Metrics */
+var rootRef;
+var scoreListRef;
+var myRef;
+
 function myInfo() {
 	FB.api("/me/",
 		{fields : "name,link"},
 		function(res){
 			console.log(res);
 			
-			var rootRef = new Firebase('http://gamma.firebase.com/ManavKataria/SandBox/JumbleFriend/');
-			var scoreListRef = rootRef.child('UserData');	
+			rootRef = new Firebase('http://gamma.firebase.com/ManavKataria/SandBox/JumbleFriend/');
+			scoreListRef = rootRef.child('UserData');	
 			//Push incorporates a hashed timestamp as node name		
-			scoreListRef.push({username: res.name, link: res.link});
+			myRef = scoreListRef.push({username: res.name, link: res.link, score: 0});
 	});
 }	
 
@@ -199,21 +203,23 @@ $(function() {
 	
 	function checkCorrectness(ans, inp) {
 		var i;
-		var count = 0;
+		var ctr = 0;
 		
 		for (i=0; i<ans.length; i++) {
 			if (ans[i] == inp[i]) {
-				count++;
+				ctr++;
 			}
 		}
 		
-		$("#correct").html(count + "/" + ans.length + " tiles at correct position");
+		$("#correct").html(ctr + "/" + ans.length + " tiles at correct position");
 
-		if (count == ans.length) {
+		if (ctr == ans.length) {
 			//Puzzle Solved
 			$("#sortable").addClass("complete");
 			clearInterval(counter);
 			alert('Hurray! You\'ve completed the puzzle! Try the next one, click Refresh Jumble');
+			myRef = scoreListRef.push({username: res.name, link: res.link, score: count});
+
 			//Disabling till product gets improvised.
 			//sendRequestToRecipients(friend_ids.join(","));
 		} else {
