@@ -44,6 +44,7 @@ function playerFBInfo() {
 
 			global rootRef;
 			global scoreListRef;
+			global userInfo;
 			
 			rootRef = new Firebase('http://gamma.firebase.com/ManavKataria/SandBox/JumbleFriend/');
 			scoreListRef = rootRef.child('UserData');
@@ -270,6 +271,7 @@ $(function() {
 		
 		global myRef;
 		global scoreListRef;
+		global userInfo;
 	
 		/* Query User Data From facebook */
 		playerFBInfo();
