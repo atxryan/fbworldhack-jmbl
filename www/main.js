@@ -96,14 +96,14 @@ var lettersAsFriends = {
 			}],
 	" " : [{	
 				name: "a blank space",
-				picture: ""
+				picture: "http://profile.ak.fbcdn.net/hprofile-ak-ash3/41612_17610706465_2015402887_n.jpg"
 			}],
 	"a" : [{	
 				name: "a",
 				picture: ""
 			}],
 	"b" : [{	
-				name: "",
+				name: "b",
 				picture: ""
 			}],
 	"c" : [{	
@@ -116,7 +116,7 @@ var lettersAsFriends = {
 			}],
 	"e" : [{	
 				name: "e",
-				picture: ""
+				picture: "http://i.c-b.co/is/image/LandOfNod/Pillow_ABC_E_LL_0412?$web_lineItem$"
 			}],
 	"f" : [{	
 				name: "f",
@@ -132,10 +132,10 @@ var lettersAsFriends = {
 			}],
 	"i" : [{	
 				name: "i",
-				picture: ""
+				picture: "http://profile.ak.fbcdn.net/hprofile-ak-snc7/373035_118077678252869_1698485463_n.jpg"
 			}],
 	"j" : [{	
-				name: "",
+				name: "j",
 				picture: ""
 			}],
 	"k" : [{	
