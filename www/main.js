@@ -53,6 +53,7 @@ function playerFBInfo() {
 	});
 }	
 
+/* TODO: Is it valid to have elements beginning with a digit? */
 var lettersAsFriends = {
 	"0" : [{
 				name: "0",
@@ -225,7 +226,7 @@ $(function() {
 			alert('Hurray! You\'ve completed the puzzle! Try the next one, click Refresh Jumble');
 
 			// Push score to Firebase
-			g.myRef.set({user: g.userInfo, score: count, like: ans});
+			g.myRef.set({user: g.userInfo, score: count});
 
 			//Disabling till product gets improvised.
 			//sendRequestToRecipients(friend_ids.join(","));
@@ -250,11 +251,13 @@ $(function() {
 			var randLike = scrubbedArray[randNum].name;
 
 			console.log(randLike);
+			g.userInfo.like = randLike;
 
 			JMBL.initJumble(randLike.toLowerCase());
 		});
 	}
 
+	/* FIXME: Should be called only once per user session. Should not be *appended* for every game instance */
 	JMBL.getFriends = function() {
 		FB.api("/me/friends/",
 			{fields : "name,id,picture"},
@@ -292,10 +295,7 @@ $(function() {
 
     JMBL.initJumble = function (word) {
 		// This is our word. This would be returned by our getLike() function or its equivalent;
-		// For testing purposes it is currently hardcoded.
-	
-		//word = 'facebook';
-
+		
 		var currentArray = [];
 		
 		// We split the array into it's component letters and shuffle them.
