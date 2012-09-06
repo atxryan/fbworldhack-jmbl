@@ -39,13 +39,14 @@ var userInfo = {name: "WhoAmI", link: "www.facebook.com"};
 function myInfo() {
 	FB.api("/me/",
 		{fields : "name,link"},
-		return function(res){
+		function(res){
 			console.log(res);
 			
 			rootRef = new Firebase('http://gamma.firebase.com/ManavKataria/SandBox/JumbleFriend/');
-			scoreListRef = rootRef.child('UserData');	
+			scoreListRef = rootRef.child('UserData');
+
 			//Push incorporates a hashed timestamp as node name	
-			return ({username: res.name, link: res.link});
+			userInfo = {username: res.name, link: res.link};
 	});
 }	
 
@@ -266,7 +267,7 @@ $(function() {
 		
 	
 		/* Query User Data From facebook */
-		userInfo = myInfo();
+		myInfo();
 
 		/* Push to Firebase */
 		myRef = scoreListRef.push({user: userInfo, score: -1});
