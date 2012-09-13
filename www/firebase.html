@@ -125,11 +125,18 @@ Logger Section:
   // Add a callback that is triggered for each chat message.
   messagesRef.on('child_added', function (messageSnapshot) {
       var log = messageSnapshot.val();
-      $('<div/>').text('User: ' + log.username + '; link: ' + log.link).appendTo($('#messagesDiv'));
+      var logString = 'User: ' + log.user.name + 
+                      '; link: ' + log.user.link + 
+                      '; like: ' + log.user.like + 
+                      '; score: ' + log.score + 
+                      '; time: ' + log.time;
+
+      console.log(logString);
+
+      $('<div/>').text(logString).appendTo($('#messagesDiv'));
       $('#messagesDiv')[0].scrollTop = $('#messagesDiv')[0].scrollHeight;
   });
 
-  console.log(Date.now())
 </script>
 
 </body>

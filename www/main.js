@@ -36,20 +36,52 @@ var count = 91;
 var g = {};
 g.userInfo = {name: "WhoAmI", link: "www.facebook.com/me", like: "www.facebook.com/me/like"};
 
+function localTimeStamp() {
+      var dt = new Date(Date.now());	//TODO: Convert to UTC
+      var hours = dt.getHours();
+      var minutes = dt.getMinutes();
+      var seconds = dt.getSeconds();
+
+      // the above dt.get...() functions return a single digit
+      // so I prepend the zero here when needed
+      if (hours < 10) 
+       hours = '0' + hours;
+
+      if (minutes < 10) 
+       minutes = '0' + minutes;
+
+      if (seconds < 10) 
+       seconds = '0' + seconds;
+
+      return hours + ":" + minutes + ":" + seconds;
+}
+
+/* Pushes Global Information to Firebase */
+function initFirebase() {
+	// Init
+	g.rootRef = new Firebase('http://gamma.firebase.com/ManavKataria/SandBox/JumbleFriend/');
+	g.scoreListRef = g.rootRef.child('UserData');
+
+	//Push incorporates a hashed timestamp as node name	
+	g.myRef = g.scoreListRef.push({user: g.userInfo, score: -1, time: localTimeStamp()});
+}
+
+/* Pushes Global Information to Firebase */
+// Precondition: g.myRef should be set via initFirebase() before a call to setFirebase() 
+function setFirebase(){
+	g.myRef.set({user: g.userInfo, score: count, time: localTimeStamp()});
+}
+
 function playerFBInfo() {
 	FB.api("/me/",
 		{fields : "name,link"},
 		function(res){
 			console.log(res);
 
-			g.rootRef = new Firebase('http://gamma.firebase.com/ManavKataria/SandBox/JumbleFriend/');
-			g.scoreListRef = g.rootRef.child('UserData');
-
-			//Push incorporates a hashed timestamp as node name	
 			g.userInfo = {username: res.name, link: res.link, like: g.userInfo.like};
 
-			/* Push to Firebase */
-			g.myRef = g.scoreListRef.push({user: g.userInfo, score: -1});
+			/* Initial Push to Firebase */
+			initFirebase();
 	});
 }	
 
@@ -225,8 +257,8 @@ $(function() {
 			clearInterval(counter);
 			alert('Hurray! You\'ve completed the puzzle! Try the next one, click Refresh Jumble');
 
-			// Push score to Firebase
-			g.myRef.set({user: g.userInfo, score: count});
+			// Set score at Firebase
+			setFirebase();
 
 			//Disabling till product gets improvised.
 			//sendRequestToRecipients(friend_ids.join(","));
@@ -295,7 +327,10 @@ $(function() {
 
     JMBL.initJumble = function (word) {
 		// This is our word. This would be returned by our getLike() function or its equivalent;
-		
+		// For testing purposes it is currently hardcoded.
+	
+		//word = 'facebook';
+
 		var currentArray = [];
 		
 		// We split the array into it's component letters and shuffle them.
