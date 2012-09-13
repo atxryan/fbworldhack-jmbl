@@ -127,12 +127,15 @@ Logger Section:
       var log = messageSnapshot.val();
       var logString = "";
 
-      if (log.user.name)
-        logString += 'User: ' + log.user.name;
-      if (log.user.link)
-        logString += ' Link: ' + log.user.link;
-      if (log.user.like)
-        logString += ' Like: ' + log.user.like;
+      if (log.user) {
+        if (log.user.name)
+          logString += 'User: ' + log.user.name;
+        if (log.user.link)
+          logString += ' Link: ' + log.user.link;
+        if (log.user.like)
+          logString += ' Like: ' + log.user.like;
+      }
+      
       if (log.score)
         logString += ' Score: ' + log.score;
       if (log.time)
