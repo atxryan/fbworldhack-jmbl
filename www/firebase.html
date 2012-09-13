@@ -125,11 +125,18 @@ Logger Section:
   // Add a callback that is triggered for each chat message.
   messagesRef.on('child_added', function (messageSnapshot) {
       var log = messageSnapshot.val();
-      var logString = 'User: ' + log.user.name + 
-                      '; link: ' + log.user.link + 
-                      '; like: ' + log.user.like + 
-                      '; score: ' + log.score + 
-                      '; time: ' + log.time;
+      var logString = "";
+
+      if (log.user.name)
+        logString += 'User: ' + log.user.name;
+      if (log.user.link)
+        logString += ' Link: ' + log.user.link;
+      if (log.user.like)
+        logString += ' Like: ' + log.user.like;
+      if (log.score)
+        logString += ' Score: ' + log.score;
+      if (log.time)
+        logString += ' Time: ' + log.time;
 
       console.log(logString);
 
