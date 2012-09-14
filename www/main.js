@@ -71,7 +71,8 @@ function initFirebase() {
 /* Pushes Global Information to Firebase */
 // Precondition: g.myRef should be set via initFirebase() before a call to setFirebase() 
 function setFirebase(){
-	g.myRef.set({user: g.userInfo, score: count, time: localTimeStamp(), error: g.error});
+	var score = count * like.length * 100;
+	g.myRef.set({user: g.userInfo, score: score, time: localTimeStamp(), error: g.error});
 }
 
 function playerFBInfo() {
@@ -257,11 +258,12 @@ $(function() {
 			//Puzzle Solved
 			$("#sortable").addClass("complete");
 			clearInterval(counter);
-			alert('Hurray! You\'ve completed the puzzle! Try the next one, click Refresh Jumble');
 
 			// Set score at Firebase
+			scoreInput(g.userInfo.name, g.userInfo.score);
 			setFirebase();
 
+			alert('Hurray! You\'ve completed the puzzle! Try the next one, click Refresh Jumble');
 			//Disabling till product gets improvised.
 			//sendRequestToRecipients(friend_ids.join(","));
 		} else {
