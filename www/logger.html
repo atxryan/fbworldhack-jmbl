@@ -1,0 +1,46 @@
+<html>
+<head>
+  <title>Jumblefriend - Logger</title>
+  <script type="text/javascript" src="http://static.firebase.com/v0/firebase.js"></script>
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+</head>
+<body>
+
+<h1>Jumblefriend - Logger</h1>
+
+<div id='messagesDiv'></div>
+<script type='text/javascript'>
+//  <link rel="stylesheet" type="text/css" href="http://www.firebase.com/css/example.css">
+
+  // Get a reference to the root of the chat data.
+  var messagesRef = new Firebase('http://gamma.firebase.com/ManavKataria/SandBox/JumbleFriend/UserData');
+  
+  // Add a callback that is triggered for each chat message.
+  messagesRef.on('child_added', function (messageSnapshot) {
+      var log = messageSnapshot.val();
+      var logString = "";
+
+      if (log.user) {
+        if (log.user.name)
+          logString += 'User: ' + log.user.name;
+        if (log.user.link)
+          logString += ' Link: ' + log.user.link;
+        if (log.user.like)
+          logString += ' Like: ' + log.user.like;
+      }
+      
+      if (log.score)
+        logString += ' Score: ' + log.score;
+      if (log.time)
+        logString += ' Time: ' + log.time;
+
+      console.log(logString);
+
+      $('<div/>').text(logString).appendTo($('#messagesDiv'));
+      $('#messagesDiv')[0].scrollTop = $('#messagesDiv')[0].scrollHeight;
+  });
+
+</script>
+
+</body>
+</html>
