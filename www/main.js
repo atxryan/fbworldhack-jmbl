@@ -71,7 +71,15 @@ function initFirebase() {
 /* Pushes Global Information to Firebase */
 // Precondition: g.myRef should be set via initFirebase() before a call to setFirebase() 
 function setFirebase() {
-	var score = count * like.length * 100;
+	
+	if (g.userInfo && g.userInfo.like) {
+		var len = g.userInfo.like.length;
+	} else {
+		len = 7;
+	}
+	
+	var score = count * len * 100;
+
 	g.myRef.set({user: g.userInfo, score: score, time: localTimeStamp(), error: g.error});
 	scoreInput(g.userInfo.username, score);
 }
