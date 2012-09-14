@@ -70,9 +70,10 @@ function initFirebase() {
 
 /* Pushes Global Information to Firebase */
 // Precondition: g.myRef should be set via initFirebase() before a call to setFirebase() 
-function setFirebase(){
+function setFirebase() {
 	var score = count * like.length * 100;
 	g.myRef.set({user: g.userInfo, score: score, time: localTimeStamp(), error: g.error});
+	scoreInput(g.userInfo.username, score);
 }
 
 function playerFBInfo() {
@@ -260,7 +261,6 @@ $(function() {
 			clearInterval(counter);
 
 			// Set score at Firebase
-			scoreInput(g.userInfo.name, g.userInfo.score);
 			setFirebase();
 
 			alert('Hurray! You\'ve completed the puzzle! Try the next one, click Refresh Jumble');
