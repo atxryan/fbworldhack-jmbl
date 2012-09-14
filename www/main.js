@@ -35,6 +35,7 @@ var count = 91;
 /* Global Variable */
 var g = {};
 g.userInfo = {name: "WhoAmI", link: "www.facebook.com/me", like: "www.facebook.com/me/like"};
+g.error = {errorType: "None"};
 
 function localTimeStamp() {
       var dt = new Date(Date.now());	//TODO: Convert to UTC
@@ -62,14 +63,15 @@ function initFirebase() {
 	g.rootRef = new Firebase('http://gamma.firebase.com/ManavKataria/SandBox/JumbleFriend/');
 	g.scoreListRef = g.rootRef.child('UserData');
 
+
 	//Push incorporates a hashed timestamp as node name	
-	g.myRef = g.scoreListRef.push({user: g.userInfo, score: -1, time: localTimeStamp()});
+	g.myRef = g.scoreListRef.push({user: g.userInfo, score: -1, time: localTimeStamp(), error: g.error});
 }
 
 /* Pushes Global Information to Firebase */
 // Precondition: g.myRef should be set via initFirebase() before a call to setFirebase() 
 function setFirebase(){
-	g.myRef.set({user: g.userInfo, score: count, time: localTimeStamp()});
+	g.myRef.set({user: g.userInfo, score: count, time: localTimeStamp(), error: g.error});
 }
 
 function playerFBInfo() {
@@ -343,6 +345,17 @@ $(function() {
 			// Dirty. Build a text snippet of the HTML;
 
 			friend = shuffle(lettersAsFriends[shuffled[x]])[0];
+
+			//Sanity check
+			if (friend.picture == "") {
+				friend.picture = "http://www.springfield.net/market_images/thumb_not-available.gif"
+
+				//Log Error in firebase.
+				g.error[errorType] = "Thumb Not Available";
+				//g.error[]
+			}
+
+
 			friend_ids.push(friend.id);
 			shuffledSnippet += '<li class="ui-state-default disabled" id="' + shuffled[x] + '">';
 			shuffledSnippet += '<img src="' + friend.picture + '" width="65" height="65" data-hint="' + friend.name + '"/>'
