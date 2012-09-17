@@ -82,10 +82,10 @@ function setFirebaseScore() {
 		len = 7;
 	}
 	
-	g.score = score;
+	g.score = count * len * 100;
 
 	setFirebase();
-	scoreInput(g.userInfo.username, score);
+	scoreInput(g.userInfo.username, g.score);
 }
 
 
@@ -276,7 +276,7 @@ $(function() {
 			// Set score at Firebase
 			setFirebaseScore();
 			alert('Hurray! You\'ve completed the puzzle! Your score is: ' + g.score);
-			
+
 			//Disabling till product gets improvised.
 			//sendRequestToRecipients(friend_ids.join(","));
 		} else {
