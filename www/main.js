@@ -36,6 +36,7 @@ var count = 91;
 var g = {};
 g.userInfo = {name: "WhoAmI", link: "www.facebook.com/me", like: "www.facebook.com/me/like"};
 g.error = [];
+g.score = 0;
 
 function localTimeStamp() {
       var dt = new Date(Date.now());	//TODO: Convert to UTC
@@ -65,13 +66,13 @@ function initFirebase() {
 
 
 	//Push incorporates a hashed timestamp as node name	
-	g.myRef = g.scoreListRef.push({user: g.userInfo, score: -1, time: localTimeStamp(), error: g.error});
+	g.myRef = g.scoreListRef.push({user: g.userInfo, score: g.score, time: localTimeStamp(), error: g.error});
 }
 
 /* Pushes Global Information to Firebase */
 // Precondition: g.myRef should be set via initFirebase() before a call to setFirebase() 
 function setFirebase() {	
-	g.myRef.set({user: g.userInfo, time: localTimeStamp(), error: g.error});
+	g.myRef.set({user: g.userInfo, score: g.score, time: localTimeStamp(), error: g.error});
 }
 
 function setFirebaseScore() {
@@ -81,10 +82,9 @@ function setFirebaseScore() {
 		len = 7;
 	}
 	
-	var score = count * len * 100;
+	g.score = score;
 
 	setFirebase();
-	g.myRef.set({user: g.userInfo, score: score, time: localTimeStamp(), error: g.error});
 	scoreInput(g.userInfo.username, score);
 }
 
@@ -275,8 +275,8 @@ $(function() {
 
 			// Set score at Firebase
 			setFirebaseScore();
-
-			alert('Hurray! You\'ve completed the puzzle! Try the next one, click Refresh Jumble');
+			alert('Hurray! You\'ve completed the puzzle! Your score is: ' + g.score);
+			
 			//Disabling till product gets improvised.
 			//sendRequestToRecipients(friend_ids.join(","));
 		} else {
