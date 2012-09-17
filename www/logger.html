@@ -20,41 +20,32 @@
       var log = messageSnapshot.val();
       var logString = "";
 
+      if (log.username && log.link)
+        logString += '<a href=' + log.link + '>' + log.username + '</a>';
+
       if (log.user) {
       
-        jQuery('<a/>', {
+        a = jQuery('<a/>', {
             href: log.user.link,
-            text: log.user.name,
+            text: log.user.username,
             target: "_blank"
         }).appendTo('#messagesDiv');
 
+        if (log.time)
+          logString += ' | ' + '(' + log.time + ')' + ' | ';
+
         if (log.user.like)
           logString += ' Like: ' + log.user.like;
+               
       }
       
       if (log.score)
         logString += ' Score: ' + log.score;
-      if (log.time)
-        logString += ' Time: ' + log.time;
 
-/* 
-      if (log.user) {
-        if (log.user.name)
-          logString += 'User: ' + log.user.name;
-        if (log.user.link)
-          logString += ' Link: ' + log.user.link;
-        if (log.user.like)
-          logString += ' Like: ' + log.user.like;
-      }
-      
-      if (log.score)
-        logString += ' Score: ' + log.score;
-      if (log.time)
-        logString += ' Time: ' + log.time;
-*/
+      d = $('<div/>').html(logString);
 
-      $('<div/>').html(logString).appendTo($('#messagesDiv'));
-      $('#messagesDiv')[0].scrollTop = $('#messagesDiv')[0].scrollHeight;
+      d.appendTo($('#messagesDiv'));
+      //$('#messagesDiv')[0].scrollTop = $('#messagesDiv')[0].scrollHeight;
   });
 
 </script>

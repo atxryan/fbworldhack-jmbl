@@ -361,12 +361,11 @@ $(function() {
 				friend.picture = "http://www.springfield.net/market_images/thumb_not-available.gif"
 
 				//Log Error in firebase.
-				g.error[errorType] = "Thumb Not Available";
-				//g.error[]
+				g.error = "Thumb Not Available";
 			}
 
 			if (friend.name == shuffled[x]) {
-				g.error[errorType] = "No friend starting with: " + shuffled[x]; 
+				g.error = "No friend starting with: " + shuffled[x]; 
 			}
 
 
