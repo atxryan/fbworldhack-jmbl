@@ -21,7 +21,7 @@
       var logString = "";
 
       if (log.username && log.link)
-        logString += '<a href=' + log.link + '>' + log.username + '</a>';
+        logString += '<a href=' + log.link + '>' + log.username + '</a>' + '<br></br>';
 
       if (log.user) {
       
@@ -32,21 +32,21 @@
         }).appendTo('#messagesDiv');
 
         if (log.time)
-          logString += ' | ' + '(' + log.time + ')' + ' | ';
+          logString += '(' + log.time + ')' ;
 
         if (log.user.like)
-          logString += ' Like: ' + log.user.like;
+          logString += ' | ' + log.user.like;
 
         if (log.error) {
-            //logString += '<div font='
-              
-
+          logString += ' | <font color="red"> Error: ';
+          logString += log.error; 
+          logString += '</font> ';                      
         }
                
       }
       
       if (log.score)
-        logString += ' Score: ' + log.score;
+        logString += ' | ' + log.score + '<br></br>';
 
       d = $('<div/>').html(logString);
 
