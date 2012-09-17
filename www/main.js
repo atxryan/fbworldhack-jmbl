@@ -311,11 +311,10 @@ $(function() {
 					var firstLetter = res.data[x].name.toLowerCase().substring(0,1);
 					
 					if (lettersAsFriends[firstLetter]) {
-						var idx = lettersAsFriends[firstLetter].indexOf("firstLetter");
-
+						
 						//Remove default picture entry;
-						if (idx != -1) {
-							lettersAsFriends[firstLetter].splice(idx,1);
+						if (lettersAsFriends[firstLetter][0].name == firstLetter) {
+							lettersAsFriends[firstLetter].splice(0,1);
 						}
 
 						lettersAsFriends[firstLetter].push(res.data[x]);
