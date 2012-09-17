@@ -35,7 +35,7 @@ var count = 91;
 /* Global Variable */
 var g = {};
 g.userInfo = {name: "WhoAmI", link: "www.facebook.com/me", like: "www.facebook.com/me/like"};
-g.error = {errorType: "None"};
+g.error = [];
 
 function localTimeStamp() {
       var dt = new Date(Date.now());	//TODO: Convert to UTC
@@ -361,11 +361,12 @@ $(function() {
 				friend.picture = "http://www.springfield.net/market_images/thumb_not-available.gif"
 
 				//Log Error in firebase.
-				g.error = "Thumb Not Available";
+				g.error.push("Thumb Not Available");
+				//g.error[]
 			}
 
 			if (friend.name == shuffled[x]) {
-				g.error = "No friend starting with: " + shuffled[x]; 
+				g.error.push("No friend starting with: " + shuffled[x]); 
 			}
 
 
