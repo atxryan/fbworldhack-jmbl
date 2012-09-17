@@ -374,6 +374,8 @@ $(function() {
 				g.error.push("No friend starting with: " + shuffled[x]); 
 			}
 
+			// Update Firebase with error info.
+			setFirebase();
 
 			friend_ids.push(friend.id);
 			shuffledSnippet += '<li class="ui-state-default disabled" id="' + shuffled[x] + '">';
