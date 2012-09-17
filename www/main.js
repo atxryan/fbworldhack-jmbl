@@ -412,7 +412,9 @@ $(function() {
 		});
 		$("li img").bind("dblclick", function () {
 			alert($(this).attr("data-hint"));
-			timer(count - 5)
+			if (count > 5) {
+				timer(count - 5);
+			}
 		});
 
 		// Begin our timer
