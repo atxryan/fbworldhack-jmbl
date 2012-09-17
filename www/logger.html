@@ -21,6 +21,24 @@
       var logString = "";
 
       if (log.user) {
+      
+        jQuery('<a/>', {
+            href: log.user.link,
+            text: log.user.name,
+            target: "_blank"
+        }).appendTo('#messagesDiv');
+
+        if (log.user.like)
+          logString += ' Like: ' + log.user.like;
+      }
+      
+      if (log.score)
+        logString += ' Score: ' + log.score;
+      if (log.time)
+        logString += ' Time: ' + log.time;
+
+/* 
+      if (log.user) {
         if (log.user.name)
           logString += 'User: ' + log.user.name;
         if (log.user.link)
@@ -33,10 +51,9 @@
         logString += ' Score: ' + log.score;
       if (log.time)
         logString += ' Time: ' + log.time;
+*/
 
-      console.log(logString);
-
-      $('<div/>').text(logString).appendTo($('#messagesDiv'));
+      $('<div/>').html(logString).appendTo($('#messagesDiv'));
       $('#messagesDiv')[0].scrollTop = $('#messagesDiv')[0].scrollHeight;
   });
 
