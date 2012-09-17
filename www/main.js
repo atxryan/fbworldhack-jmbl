@@ -310,8 +310,16 @@ $(function() {
 				for (var x = 0; x < res.data.length; x++) {
 					var firstLetter = res.data[x].name.toLowerCase().substring(0,1);
 					
-					if (lettersAsFriends[firstLetter])
-					  lettersAsFriends[firstLetter].push(res.data[x]);
+					if (lettersAsFriends[firstLetter]) {
+						var idx = lettersAsFriends[firstLetter].indexOf("firstLetter");
+
+						//Remove default picture entry;
+						if (idx != -1) {
+							lettersAsFriends[firstLetter].splice(idx,1);
+						}
+
+						lettersAsFriends[firstLetter].push(res.data[x]);
+					}
 				}
 				getLike();
 		});
@@ -361,11 +369,9 @@ $(function() {
 				friend.picture = "http://www.springfield.net/market_images/thumb_not-available.gif"
 
 				//Log Error in firebase.
-				g.error.push("Thumb Not Available");
+				g.error.push("Thumb Not Available. Replacing with Default.");
 				//g.error[]
-			}
-
-			if (friend.name == shuffled[x]) {
+			} else if (friend.name == shuffled[x]) {
 				g.error.push("No friend starting with: " + shuffled[x]); 
 			}
 
