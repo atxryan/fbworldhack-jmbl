@@ -200,7 +200,7 @@ var lettersAsFriends = {
 				picture: ""
 			}],
 	"o" : [ 
-			{	name: "Ocean Spray",
+			{	name: "o",
 				picture: "https://fbcdn-profile-a.akamaihd.net/hprofile-ak-ash2/373019_117917151585263_710015587_n.jpg"
 			}],
 	"p" : [{	
@@ -224,7 +224,7 @@ var lettersAsFriends = {
 				picture: ""
 			}],
 	"u" : [{	
-				name: "Usher",
+				name: "u",
 				picture: "https://fbcdn-profile-a.akamaihd.net/hprofile-ak-ash2/592186_6564142497_957091799_n.jpg"
 			}],
 	"v" : [{	
@@ -236,15 +236,15 @@ var lettersAsFriends = {
 				picture: ""
 			}],
 	"x" : [{	
-				name: "X-men",
+				name: "x",
 				picture: "https://fbexternal-a.akamaihd.net/safe_image.php?d=AQDpHmJOzORmI5Ma&w=180&h=540&url=http%3A%2F%2Fupload.wikimedia.org%2Fwikipedia%2Fen%2Fc%2Fc9%2FX-men-animated-series-intro.jpg&fallback=hub_tv&prefix=d"
 			}],
 	"y" : [{	
-				name: "Yanni",
+				name: "y",
 				picture: "https://fbcdn-profile-a.akamaihd.net/hprofile-ak-ash2/158054_136007876429612_1298155064_n.jpg"
 			}],
 	"z" : [{
-				name: "Zorro",
+				name: "z",
 				picture: "https://fbcdn-profile-a.akamaihd.net/hprofile-ak-snc4/187821_92323146014_6971422_n.jpg"
 			}]
 };
