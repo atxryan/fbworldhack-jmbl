@@ -38,24 +38,9 @@ g.userInfo = {name: "WhoAmI", link: "www.facebook.com/me", like: "www.facebook.c
 g.error = [];
 g.score = 0;
 
-function localTimeStamp() {
-      var dt = new Date(Date.now());	//TODO: Convert to UTC
-      var hours = dt.getHours();
-      var minutes = dt.getMinutes();
-      var seconds = dt.getSeconds();
-
-      // the above dt.get...() functions return a single digit
-      // so I prepend the zero here when needed
-      if (hours < 10) 
-       hours = '0' + hours;
-
-      if (minutes < 10) 
-       minutes = '0' + minutes;
-
-      if (seconds < 10) 
-       seconds = '0' + seconds;
-
-      return hours + ":" + minutes + ":" + seconds;
+function timeStamp() {
+    var dt = new Date(Date.now());	
+	return dt.toUTCString();
 }
 
 /* Pushes Global Information to Firebase */
@@ -66,13 +51,13 @@ function initFirebase() {
 
 
 	//Push incorporates a hashed timestamp as node name	
-	g.myRef = g.scoreListRef.push({user: g.userInfo, score: g.score, time: localTimeStamp(), error: g.error});
+	g.myRef = g.scoreListRef.push({user: g.userInfo, score: g.score, time: timeStamp(), error: g.error});
 }
 
 /* Pushes Global Information to Firebase */
 // Precondition: g.myRef should be set via initFirebase() before a call to setFirebase() 
 function setFirebase() {	
-	g.myRef.set({user: g.userInfo, score: g.score, time: localTimeStamp(), error: g.error});
+	g.myRef.set({user: g.userInfo, score: g.score, time: timeStamp(), error: g.error});
 }
 
 function setFirebaseScore() {
