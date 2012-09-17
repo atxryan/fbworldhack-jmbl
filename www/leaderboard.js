@@ -3,7 +3,7 @@ var LEADERBOARD_SIZE = 10;
 // Build some firebase references.
 var rootRef = new Firebase('http://gamma.firebase.com/ManavKataria/SandBox/JumbleFriend/');
 var scoreListRef = rootRef.child("ScoreList/Leaderboard");
-var highestScoreRef = rootRef.child("highestScore");
+var highestScoreRef = scoreListRef.child("highestScore");
 
 // Keep a mapping of firebase locations to HTML elements, so we can move / remove elements as necessary.
 var htmlForPath = {};

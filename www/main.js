@@ -365,6 +365,10 @@ $(function() {
 				//g.error[]
 			}
 
+			if (friend.name == shuffled[x]) {
+				g.error[errorType] = "No friend starting with: " + shuffled[x]; 
+			}
+
 
 			friend_ids.push(friend.id);
 			shuffledSnippet += '<li class="ui-state-default disabled" id="' + shuffled[x] + '">';
