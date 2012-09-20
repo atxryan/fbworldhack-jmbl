@@ -358,7 +358,7 @@ $(function() {
 				friend.picture = "http://www.springfield.net/market_images/thumb_not-available.gif"
 
 				//Log Error in firebase.
-				g.error.push("Thumb Not Available. Replacing with Default.");
+				g.error.push("Thumb Not Available - Replacing with Default");
 				//g.error[]
 			} else if (friend.name == shuffled[x]) {
 				g.error.push("No friend starting with: " + shuffled[x]); 
@@ -376,7 +376,7 @@ $(function() {
 		// Inject the text snippet as the #sortable html
 		$("#sortable").html(shuffledSnippet);
 
-		$( "#sortable" ).sortable({
+		$("#sortable").sortable({
 			cancel: ".disabled",
 
 			stop: function(event, ui) { 
@@ -402,6 +402,7 @@ $(function() {
 				$(this).attr('style','color:green');				
 			}
 		});
+
 		$("li img").bind("dblclick", function () {
 			alert($(this).attr("data-hint"));
 			if (count > 5) {
@@ -423,20 +424,24 @@ $(function() {
 			count = 91;
 		}
 
-		counter=setInterval(timer, 1000); //1000 will  run it veery 1 second
+		// Reset/Initialize 
+		$("#timer").removeClass("urgent");
+		$("#sortable").sortable('enable');
+
+		counter=setInterval(timer, 1000); //1000 will  run it every 1 second
 
 		function timer() {
 		  count = count - 1;
 		  $("#timer b").text("00:" + count);
 
-		  if (count == 5) {
+		  if (count == 10) {
 		  	$("#timer").addClass("urgent");
 		  }		  
 		  
 		  if (count <= 0) {
-			 clearInterval(counter);
-		     $( "#sortable" ).sortable('disable');
-		     return;
+			clearInterval(counter);
+		    $("#sortable").sortable('disable');
+		    return;
 		  }
 
 		}
