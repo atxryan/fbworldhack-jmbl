@@ -1,7 +1,7 @@
   /* Global Variables */
   var name = "";
   var count = 0;
-  var setid = 1;  //buttonset id
+  var setid = 1;  //buttonset_id
   places = {};
 
   function getPlace(text) {
@@ -61,25 +61,18 @@
     if (e.keyCode == 13) {
       name = $('#nameInput').val();
       var message = $('#messageInput').val();
-	  if (message.length != 0) {
-		var place = getPlace(message).toLowerCase();
-		text = getText(message);
-		messagesRef.push({name:name, text:text, place:place});
-		$('#messageInput').val('');
-	  }
+	  
+      if (message.length != 0) {
+    		var place = getPlace(message).toLowerCase();
+    		text = getText(message);
+    		messagesRef.push({name:name, text:text, place:place});
+    		$('#messageInput').val('');
+  	  }
     }
   });
-  
 
   // Add a callback that is triggered for each chat message.
   messagesRef.on('child_added', addMessage);
-
-  //Anytime an online status is added, removed, or changed, we want to update the GUI
-  //TODO: These need to update UI for the other clients when they observe a firebase data change.
-  /*myRef.on('child_added', addStatus);
-  myRef.on('child_removed', removeStatus);
-  myRef.on('child_changed', setStatus);
-  */
 
   function addMessage(snapshot) {
     var message = snapshot.val();	  
@@ -91,30 +84,33 @@
     buttonNode[0] = "";
 
     message.place = message.place.toLowerCase();
-    //message.name  = message.name.toLowerCase();
-
+    
     count = count + 1;
   	
     if (message.place != "") {
 
       //Check if place was already mentioned
+      // && places[message.place].vote == 'Accepted'
       if (places[message.place]) {
-        mentionedBy = places[message.place].name;  
+        mentionedBy = places[message.place].name;
       }
        
       //Unique place. Did not find a prior mention
-      if (!mentionedBy) {
-        //Populate the LUT {place: 'playerName'} 
+      //OR the place mentioned was Rejected.
+      if (!mentionedBy || places[message.place].vote == 'Rejected') {
+        //Populate the LUT {place: 'playerName', ref: firebase-reference-rul} 
         places[message.place] = {name: message.name, ref: snapshot.ref().toString()};
-        console.log('Firebase Reference: ' + snapshot.ref());
-        console.log('Firebase Name: ' + snapshot.name());
-
+        
         //highlight as valid
-        placeNode = $('<span class="place-valid"/>').html(message.place);
+        placeNode = $('<span id="place' + setid + '" class="place-valid"/>').html(message.place);
 
         //create button set for the current statement
         buttonNode = createButtonSet(setid, message.place);
         
+        //Register Callback
+        voteRef = new Firebase(places[message.place].ref + '/vote');              
+        voteRef.on('value', voteUpdateHandler);
+            
       //Duplicate. Mention found.
       } else {
         //update status message
@@ -136,10 +132,9 @@
 
     //register button click handlers
     if (message.place != "" && places[message.place] && !mentionedBy){
-      console.log("Registering ClickHandler for #btn" + setid);
       
-      $("#acceptBtn" + setid).click(acceptBtnClickCB);
-      $("#rejectBtn" + setid ).click(rejectBtnClickCB);
+      $("#acceptBtn" + setid).click(acceptButtonClickHandler);
+      $("#rejectBtn" + setid ).click(rejectButtonClickHandler);
 
       setid++;
     }
@@ -149,34 +144,67 @@
 
   } //Child Added Callback
 
-  function acceptBtnClickCB(event) {
-    var place;
-    var player;
+  function commonButtonClickHandler(place, typeStr, id) {
+    var voteRef;
 
-    //get button id
-    place = $(this)[0].value;
-
-    //lookup correspondig place in LUT
-    if (!places[place]) {
-      console.log("Error! Player Info doesn't exist for: " + place);
-    }
-
-    player = places[place].name;
-    console.log("Accept: " + place + " Said by: " + player);
+    //lookup correspondig place in LUT    
+    console.log("Button Click: " + place + " - " + typeStr + " - mentioned by " + places[place].name);
 
     //update firebase 
-    var childRef = new Firebase(places[place].ref + '/vote');
-    childRef.set('Accepted');
-
-    //update LUT
+    voteRef = new Firebase(places[place].ref + '/vote');
+    voteRef.set({'vote': typeStr, 'id': id, 'place': place});
   }
 
-  function rejectBtnClickCB(event) {
-    console.log("Reject: " + $(this)[0].value);
-    //TODO: Replicate as acceptBtnClickCB
+  function acceptButtonClickHandler(event) {
+    var place = $(this)[0].value;
+    var setid = $(this)[0].name.charAt($(this)[0].name.length-1);
+
+    commonButtonClickHandler(place,'Accepted',setid);
   }
 
-  $(document).ready(function() {
-    //empty.
-  });
+  function rejectButtonClickHandler(event) {
+    var place = $(this)[0].value;
+    var setid = $(this)[0].name.charAt($(this)[0].name.length-1);
 
+    commonButtonClickHandler(place,'Rejected',setid);
+  }
+
+
+  function voteUpdateHandler(snapshot) {
+    var vote, setid;
+
+    if(snapshot.val()) {
+      vote = snapshot.val().vote;
+      setid = snapshot.val().id;
+      place = snapshot.val().place;
+      console.log('Vote value changed: ' + vote + ' id: ' + setid);
+      
+      // Update UI Button States
+      if (vote == 'Accepted') {
+        $("#rejectBtn" + setid).removeAttr("checked");
+        $("#acceptBtn" + setid).attr("checked","checked");
+    
+        $('#place' + setid).removeClass('place-invalid');
+        $('#place' + setid).addClass('place-valid');
+
+      } else if (vote == 'Rejected') {
+        $("#acceptBtn" + setid).removeAttr("checked");
+        $("#rejectBtn" + setid).attr("checked","checked");
+
+        $('#place' + setid).removeClass('place-valid');
+        $('#place' + setid).addClass('place-invalid');
+
+      } else {
+        //Error: Should not be called. 
+      }
+
+      $("#buttonSet" + setid).buttonset("refresh");
+      if (setid > 1) {
+        $("#buttonSet" + (setid - 1)).fadeOut(1000);
+      }
+      
+      //TODO: update LUT with Vote.
+      places[place].vote = vote;
+      
+    }//snaptshot.val() is not null;
+  }
