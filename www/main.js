@@ -354,8 +354,8 @@ $(function() {
 			friend = shuffle(lettersAsFriends[shuffled[x]])[0];
 
 			//Sanity check
-			if (friend.picture == "") {
-				friend.picture = "http://www.springfield.net/market_images/thumb_not-available.gif"
+			if (friend.picture.data.url == "") {
+				friend.picture.data.url = "http://www.springfield.net/market_images/thumb_not-available.gif"
 
 				//Log Error in firebase.
 				g.error.push("Thumb Not Available - Replacing with Default");
@@ -369,7 +369,7 @@ $(function() {
 
 			friend_ids.push(friend.id);
 			shuffledSnippet += '<li class="ui-state-default disabled" id="' + shuffled[x] + '">';
-			shuffledSnippet += '<img src="' + friend.picture + '" width="65" height="65" data-hint="' + friend.name + '"/>'
+			shuffledSnippet += '<img src="' + friend.picture.data.url + '" width="65" height="65" data-hint="' + friend.name + '"/>'
 			shuffledSnippet += '<span><input type="text" class="letter" data-letter="' + shuffled[x] + '"/></span></li>';
 		}
 
